@@ -1,0 +1,64 @@
+[
+  {
+    "codigo": "00007",
+    "tipo": "REAL",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 6: Termorregulación",
+    "etiqueta": "Hipertermia",
+    "definicion": "Temperatura corporal central superior al rango normal diurno a causa del fallo de la termorregulación.",
+    "factores_relacionados": ["Deshidratación", "Actividad vigorosa", "Exposición a ambiente cálido", "Proceso infeccioso / sepsis"],
+    "caracteristicas_definitorias": ["Piel caliente al tacto", "Rubor facial", "Taquicardia", "Taquipnea", "Temperatura > 38.5 °C"],
+    "noc": [
+      {
+        "codigo": "0800",
+        "etiqueta": "Termorregulación",
+        "indicadores": ["080001 Temperatura cutánea aumentada", "080019 Hipertermia", "080013 Frecuencia respiratoria"]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3740",
+        "etiqueta": "Tratamiento de la fiebre",
+        "actividades": [
+          "Controlar la temperatura y otros signos vitales frecuentemente.",
+          "Observar el color y la temperatura de la piel.",
+          "Administrar medicamentos antipiréticos según prescripción médica.",
+          "Aplicar medios físicos tibios si está indicado.",
+          "Fomentar el consumo de líquidos orales o vigilar hidratación EV."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente ingresa con temperatura de 39.2 grados, piel caliente al tacto, rubor facial y frecuencia cardíaca de 112 latidos por minuto.",
+    "palabras_clave_voz": ["hipertermia", "00007", "termorregulacion", "tratamiento de la fiebre", "antipireticos", "medios fisicos"]
+  },
+  {
+    "codigo": "00004",
+    "tipo": "RIESGO",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 1: Infección",
+    "etiqueta": "Riesgo de infección",
+    "definicion": "Susceptibilidad a sufrir una invasión y multiplicación de organismos patógenos.",
+    "factores_relacionados": ["Procedimientos invasivos (catéter venoso, sonda)", "Alteración de la integridad de la piel", "Desnutrición", "Inmunosupresión"],
+    "caracteristicas_definitorias": [],
+    "noc": [
+      {
+        "codigo": "1902",
+        "etiqueta": "Control del riesgo: proceso infeccioso",
+        "indicadores": ["190220 Identifica los factores de riesgo", "190208 Modifica el estilo de vida para reducir el riesgo"]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "6540",
+        "etiqueta": "Control de infecciones",
+        "actividades": [
+          "Lavarse las manos antes y después de cada actividad de cuidado.",
+          "Asegurar una técnica de cuidados de heridas adecuada y aséptica.",
+          "Vigilar signos de flogosis en zonas de venopunción."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente postoperado inmediato con herida quirúrgica abdominal y vía periférica permeable, sin fiebre actual pero con barreras cutáneas alteradas.",
+    "palabras_clave_voz": ["riesgo de infeccion", "00004", "control de infecciones", "asepsia", "lavado de manos"]
+  }
+]
