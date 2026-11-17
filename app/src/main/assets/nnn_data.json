@@ -1,35 +1,1384 @@
 [
   {
-    "codigo": "00007",
+    "codigo": "00276",
     "tipo": "REAL",
-    "dominio": "Dominio 11: Seguridad/Protección",
-    "clase": "Clase 6: Termorregulación",
-    "etiqueta": "Hipertermia",
-    "definicion": "Temperatura corporal central superior al rango normal diurno a causa del fallo de la termorregulación.",
-    "factores_relacionados": ["Deshidratación", "Actividad vigorosa", "Exposición a ambiente cálido", "Proceso infeccioso / sepsis"],
-    "caracteristicas_definitorias": ["Piel caliente al tacto", "Rubor facial", "Taquicardia", "Taquipnea", "Temperatura > 38.5 °C"],
+    "dominio": "Dominio 1: Promoción de la salud",
+    "clase": "Clase 2: Gestión de la salud",
+    "etiqueta": "Autogestión ineficaz de la salud",
+    "definicion": "Manejo insatisfactorio de los síntomas, régimen terapéutico y cambios en el estilo de vida asociados a vivir con una enfermedad crónica (Actualizado NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Complejidad del régimen terapéutico",
+      "Alfabetización en salud inadecuada",
+      "Apoyo social insuficiente",
+      "Conflicto de decisiones"
+    ],
+    "caracteristicas_definitorias": [
+      "Fallo al incluir el régimen de tratamiento en la vida diaria",
+      "Fallo al actuar para reducir factores de riesgo",
+      "Exacerbación de síntomas de la enfermedad"
+    ],
     "noc": [
       {
-        "codigo": "0800",
-        "etiqueta": "Termorregulación",
-        "indicadores": ["080001 Temperatura cutánea aumentada", "080019 Hipertermia", "080013 Frecuencia respiratoria"]
+        "codigo": "1601",
+        "etiqueta": "Conducta de cumplimiento",
+        "indicadores": [
+          "160101 Confianza en el profesional sanitario",
+          "160103 Comunica seguir la pauta prescrita",
+          "160108 Realiza las actividades de la vida diaria según prescripción"
+        ]
       }
     ],
     "nic": [
       {
-        "codigo": "3740",
-        "etiqueta": "Tratamiento de la fiebre",
+        "codigo": "5602",
+        "etiqueta": "Enseñanza: proceso de enfermedad",
         "actividades": [
-          "Controlar la temperatura y otros signos vitales frecuentemente.",
-          "Observar el color y la temperatura de la piel.",
-          "Administrar medicamentos antipiréticos según prescripción médica.",
-          "Aplicar medios físicos tibios si está indicado.",
-          "Fomentar el consumo de líquidos orales o vigilar hidratación EV."
+          "Evaluar el nivel actual de conocimientos del paciente.",
+          "Explicar la fisiopatología de la enfermedad y su relación con el tratamiento.",
+          "Identificar cambios en el estilo de vida necesarios para evitar complicaciones."
         ]
       }
     ],
-    "caso_voz": "Paciente ingresa con temperatura de 39.2 grados, piel caliente al tacto, rubor facial y frecuencia cardíaca de 112 latidos por minuto.",
-    "palabras_clave_voz": ["hipertermia", "00007", "termorregulacion", "tratamiento de la fiebre", "antipireticos", "medios fisicos"]
+    "caso_voz": "Paciente diabético e hipertenso acude a control con glucosa en 280 mg/dL refiriendo que olvida tomar sus pastillas y no sigue la dieta indicada porque le resulta complicada.",
+    "palabras_clave_voz": [
+      "autogestion ineficaz",
+      "incumplimiento",
+      "tratamiento",
+      "educacion sanitaria",
+      "00276",
+      "autogestión ineficaz de la salud",
+      "conducta de cumplimiento",
+      "enseñanza: proceso de enfermedad"
+    ]
+  },
+  {
+    "codigo": "00293",
+    "tipo": "PROMOCION",
+    "dominio": "Dominio 1: Promoción de la salud",
+    "clase": "Clase 2: Gestión de la salud",
+    "etiqueta": "Disposición para mejorar la autogestión de la salud",
+    "definicion": "Patrón de regulación e integración en la vida cotidiana de un régimen terapéutico que puede ser fortalecido.",
+    "factores_relacionados": [
+      "Motivación intrínseca del paciente"
+    ],
+    "caracteristicas_definitorias": [
+      "Expresa deseo de mejorar el manejo de los síntomas",
+      "Expresa deseo de mejorar la adherencia al tratamiento prescrito",
+      "Expresa deseo de manejar los factores de riesgo"
+    ],
+    "noc": [
+      {
+        "codigo": "1803",
+        "etiqueta": "Conocimiento: proceso de la enfermedad",
+        "indicadores": [
+          "180302 Características de la enfermedad",
+          "180306 Signos y síntomas de complicaciones"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "4480",
+        "etiqueta": "Facilitar la autorresponsabilidad",
+        "actividades": [
+          "Determinar si el paciente tiene conocimientos adecuados acerca del estado de los cuidados de salud.",
+          "Fomentar la independencia y reforzar las conductas saludables."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente joven recién diagnosticado con asma pregunta activamente cómo usar su inhalador correctamente y qué alimentos o alérgenos debe evitar en casa.",
+    "palabras_clave_voz": [
+      "disposicion para mejorar",
+      "autogestion",
+      "promocion",
+      "00293",
+      "disposición para mejorar la autogestión de la salud",
+      "conocimiento: proceso de la enfermedad",
+      "facilitar la autorresponsabilidad"
+    ]
+  },
+  {
+    "codigo": "00257",
+    "tipo": "REAL",
+    "dominio": "Dominio 1: Promoción de la salud",
+    "clase": "Clase 2: Gestión de la salud",
+    "etiqueta": "Síndrome de fragilidad del anciano",
+    "definicion": "Estado dinámico de equilibrio inestable que afecta al adulto mayor con deterioro en uno o más dominios de la salud.",
+    "factores_relacionados": [
+      "Disminución de la fuerza muscular",
+      "Sarcopenia",
+      "Apoyo social inadecuado",
+      "Enfermedad crónica agotadora"
+    ],
+    "caracteristicas_definitorias": [
+      "Fatiga",
+      "Deterioro de la movilidad física",
+      "Ingesta nutricional inadecuada",
+      "Déficit de autocuidado"
+    ],
+    "noc": [
+      {
+        "codigo": "0208",
+        "etiqueta": "Movilidad",
+        "indicadores": [
+          "020801 Mantenimiento del equilibrio",
+          "020806 Ambulación segura"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "6490",
+        "etiqueta": "Prevención de caídas",
+        "actividades": [
+          "Identificar déficits cognitivos o físicos del paciente que puedan aumentar la posibilidad de caídas.",
+          "Proporcionar dispositivos de ayuda para conseguir una deambulación estable."
+        ]
+      }
+    ],
+    "caso_voz": "Adulto mayor de 84 años presenta pérdida de peso involuntaria, marcha lenta e inestable, debilidad muscular generalizada y agotamiento al caminar tramos cortos.",
+    "palabras_clave_voz": [
+      "fragilidad del anciano",
+      "sindrome de fragilidad",
+      "adulto mayor",
+      "prevencion de caidas",
+      "00257",
+      "síndrome de fragilidad del anciano",
+      "movilidad",
+      "prevención de caídas"
+    ]
+  },
+  {
+    "codigo": "00002",
+    "tipo": "REAL",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 1: Ingestión",
+    "etiqueta": "Ingesta nutricional inadecuada",
+    "definicion": "Consumo de nutrientes insuficiente para satisfacer las necesidades metabólicas (Etiqueta actualizada NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Ingesta alimentaria insuficiente",
+      "Dificultad para deglutir",
+      "Factores económicos",
+      "Aversión a los alimentos / anorexia"
+    ],
+    "caracteristicas_definitorias": [
+      "Pérdida de peso con ingesta adecuada o inadecuada",
+      "Peso corporal inferior en un 20% o más al rango ideal",
+      "Palidez de mucosas",
+      "Tono muscular insuficiente",
+      "Hipoglucemia"
+    ],
+    "noc": [
+      {
+        "codigo": "1004",
+        "etiqueta": "Estado nutricional",
+        "indicadores": [
+          "100401 Ingesta de nutrientes",
+          "100402 Ingesta de alimentos",
+          "100405 Relación peso/talla"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1100",
+        "etiqueta": "Manejo de la nutrición",
+        "actividades": [
+          "Determinar el estado nutricional del paciente y su capacidad para satisfacer las necesidades nutricionales.",
+          "Fomentar la ingesta de calorías y proteínas adecuadas.",
+          "Controlar el peso corporal periódicamente."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente hospitalizado presenta pérdida de peso del 15% en el último mes, mucosas pálidas, debilidad muscular e ingiere menos de la mitad de su bandeja diaria.",
+    "palabras_clave_voz": [
+      "ingesta nutricional inadecuada",
+      "desnutricion",
+      "desequilibrio nutricional",
+      "bajo peso",
+      "00002",
+      "ingesta nutricional inadecuada",
+      "estado nutricional",
+      "manejo de la nutrición"
+    ]
+  },
+  {
+    "codigo": "00232",
+    "tipo": "REAL",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 1: Ingestión",
+    "etiqueta": "Obesidad",
+    "definicion": "Condición en la que el individuo acumula grasa excesiva o de manera anormal para su edad y sexo, superando el sobrepeso (Reemplazo oficial del antiguo código 00001).",
+    "factores_relacionados": [
+      "Gasto energético inferior al consumo energético",
+      "Comportamiento sedentario > 2 horas/día",
+      "Consumo excesivo de bebidas azucaradas",
+      "Tamaño de las porciones mayor al recomendado"
+    ],
+    "caracteristicas_definitorias": [
+      "Adulto: Índice de Masa Corporal (IMC) > 30 kg/m²",
+      "Niño: IMC > percentil 95 para la edad y género"
+    ],
+    "noc": [
+      {
+        "codigo": "1627",
+        "etiqueta": "Conducta de pérdida de peso",
+        "indicadores": [
+          "162703 Se compromete con un plan para comer de forma saludable",
+          "162706 Controla el tamaño de la ración",
+          "162722 Controla el peso corporal"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1280",
+        "etiqueta": "Ayuda para disminuir el peso",
+        "actividades": [
+          "Determinar el deseo y la motivación del paciente para reducir el peso.",
+          "Establecer un plan realista de comidas y aumento del gasto energético con ejercicio."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente adulto acude a triaje con un Índice de Masa Corporal de 33.5 kg/m², refiere vida sedentaria de oficina y alto consumo de carbohidratos nocturnos.",
+    "palabras_clave_voz": [
+      "obesidad",
+      "sobrepeso",
+      "imc alto",
+      "bajar de peso",
+      "00232",
+      "obesidad",
+      "conducta de pérdida de peso",
+      "ayuda para disminuir el peso"
+    ]
+  },
+  {
+    "codigo": "00103",
+    "tipo": "REAL",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 1: Ingestión",
+    "etiqueta": "Deterioro de la deglución",
+    "definicion": "Funcionamiento anormal del mecanismo de la deglución asociado con déficit de la estructura o función oral, faríngea o esofágica.",
+    "factores_relacionados": [
+      "Deterioro neuromuscular",
+      "Lesión cerebral / secuela de ACV",
+      "Fatiga de los músculos masticatorios"
+    ],
+    "caracteristicas_definitorias": [
+      "Tos antes, durante o después de tragar",
+      "Atragantamiento",
+      "Babeo",
+      "Deglución enlentecida",
+      "Rechazo de los alimentos"
+    ],
+    "noc": [
+      {
+        "codigo": "1010",
+        "etiqueta": "Estado de deglución",
+        "indicadores": [
+          "101001 Mantiene la comida en la boca",
+          "101004 Capacidad de masticación",
+          "101012 Atragantamiento o tos con la deglución"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1860",
+        "etiqueta": "Terapia de deglución",
+        "actividades": [
+          "Colocar al paciente en posición erguida (Fowler alta 90°) durante y 30 minutos después de comer.",
+          "Modificar la consistencia de los alimentos (dieta tipo puré o líquidos espesados).",
+          "Vigilar signos de aspiración bronquial."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con secuela de accidente cerebrovascular presenta tos húmeda y atragantamiento al intentar beber agua e ingerir alimentos sólidos.",
+    "palabras_clave_voz": [
+      "deterioro de la deglucion",
+      "disfagia",
+      "atragantamiento",
+      "aspiracion",
+      "00103",
+      "deterioro de la deglución",
+      "estado de deglución",
+      "terapia de deglución"
+    ]
+  },
+  {
+    "codigo": "00179",
+    "tipo": "RIESGO",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 4: Metabolismo",
+    "etiqueta": "Riesgo de nivel de glucemia inestable",
+    "definicion": "Susceptibilidad a la variación de los niveles séricos de glucosa fuera de los rangos normales, que puede comprometer la salud.",
+    "factores_relacionados": [
+      "Autogestión inadecuada de la diabetes",
+      "Adherencia inadecuada al régimen terapéutico",
+      "Estrés excesivo",
+      "Monitorización inadecuada de la glucemia",
+      "Condición asociada: Diabetes mellitus"
+    ],
+    "caracteristicas_definitorias": [],
+    "noc": [
+      {
+        "codigo": "2300",
+        "etiqueta": "Nivel de glucemia",
+        "indicadores": [
+          "230001 Concentración sanguínea de glucosa",
+          "230004 Hemoglobina glucosilada"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "2120",
+        "etiqueta": "Manejo de la hiperglucemia",
+        "actividades": [
+          "Vigilar los niveles de glucosa en sangre capilar (hemoglucotest) antes de las comidas y al acostarse.",
+          "Observar si hay signos de hiperglucemia: poliuria, polidipsia, polifagia y debilidad.",
+          "Administrar insulina según prescripción médica."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con diabetes tipo 2 hospitalizado por infección urinaria recibe corticoides y presenta variaciones de glucosa capilar entre 65 y 260 mg/dL.",
+    "palabras_clave_voz": [
+      "glucemia inestable",
+      "diabetes",
+      "hiperglucemia",
+      "hipoglucemia",
+      "insulina",
+      "00179",
+      "riesgo de nivel de glucemia inestable",
+      "nivel de glucemia",
+      "manejo de la hiperglucemia"
+    ]
+  },
+  {
+    "codigo": "00027",
+    "tipo": "REAL",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 5: Hidratación",
+    "etiqueta": "Volumen de líquidos inadecuado",
+    "definicion": "Disminución del líquido intravascular, intersticial y/o intracelular (anteriormente Déficit de volumen de líquidos).",
+    "factores_relacionados": [
+      "Pérdida activa de volumen de líquidos",
+      "Ingesta insuficiente de líquidos",
+      "Pérdidas excesivas a través de vías normales (vómitos, diarrea osmótica)"
+    ],
+    "caracteristicas_definitorias": [
+      "Sequedad de piel y mucosas",
+      "Disminución de la turgencia de la piel (signo del pliegue positivo)",
+      "Hipotensión arterial",
+      "Taquicardia",
+      "Oliguria (diuresis < 0.5 ml/kg/h)",
+      "Sed intensa"
+    ],
+    "noc": [
+      {
+        "codigo": "0601",
+        "etiqueta": "Equilibrio hídrico",
+        "indicadores": [
+          "060101 Presión arterial",
+          "060107 Entradas y salidas diarias equilibradas",
+          "060116 Hidratación cutánea",
+          "060117 Humedad de membranas mucosas"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "4120",
+        "etiqueta": "Manejo de líquidos",
+        "actividades": [
+          "Realizar un registro estricto de balance hídrico (ingresos y egresos).",
+          "Vigilar el estado de hidratación (mucosas húmedas, pulso adecuado y presión arterial).",
+          "Administrar fluidoterapia endovenosa isotónica según indicación médica."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente ingresa por emergencia tras 2 días de vómitos y diarrea aguda; presenta mucosas orales secas, signo del pliegue positivo, presión arterial 85/50 mmHg y oliguria.",
+    "palabras_clave_voz": [
+      "volumen de liquidos inadecuado",
+      "deficit de volumen de liquidos",
+      "deshidratacion",
+      "hipovolemia",
+      "balance hidrico",
+      "00027",
+      "volumen de líquidos inadecuado",
+      "equilibrio hídrico",
+      "manejo de líquidos"
+    ]
+  },
+  {
+    "codigo": "00026",
+    "tipo": "REAL",
+    "dominio": "Dominio 2: Nutrición",
+    "clase": "Clase 5: Hidratación",
+    "etiqueta": "Exceso de volumen de líquidos",
+    "definicion": "Retención excedente de líquido isotónico en los compartimentos corporales.",
+    "factores_relacionados": [
+      "Ingesta excesiva de líquidos o sodio",
+      "Compromiso de los mecanismos reguladores (insuficiencia renal o cardíaca)"
+    ],
+    "caracteristicas_definitorias": [
+      "Edema periférico (fóvea +/+)",
+      "Aumento de peso en un corto período de tiempo",
+      "Ingurgitación yugular",
+      "Disnea o estertores pulmonares",
+      "Oliguria o anasarca"
+    ],
+    "noc": [
+      {
+        "codigo": "0603",
+        "etiqueta": "Severidad de la sobrecarga de líquidos",
+        "indicadores": [
+          "060301 Edema periorbitario",
+          "060305 Edema de piernas",
+          "060318 Aumento de la presión arterial"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "4130",
+        "etiqueta": "Monitorización de líquidos",
+        "actividades": [
+          "Pesar al paciente a diario y en la misma báscula.",
+          "Evaluar la ubicación y extensión del edema (escala de Godet).",
+          "Restringir la ingesta de líquidos y sodio según prescripción y administrar diuréticos."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con enfermedad renal crónica presenta edema en miembros inferiores con fóvea ++, aumento de 3 kilos en 48 horas e hipertensión arterial.",
+    "palabras_clave_voz": [
+      "exceso de volumen de liquidos",
+      "edema",
+      "retencion de liquidos",
+      "sobrecarga hidrica",
+      "00026",
+      "exceso de volumen de líquidos",
+      "severidad de la sobrecarga de líquidos",
+      "monitorización de líquidos"
+    ]
+  },
+  {
+    "codigo": "00016",
+    "tipo": "REAL",
+    "dominio": "Dominio 3: Eliminación e intercambio",
+    "clase": "Clase 1: Función urinaria",
+    "etiqueta": "Eliminación urinaria alterada",
+    "definicion": "Disfunción en la eliminación urinaria (anteriormente Deterioro de la eliminación urinaria).",
+    "factores_relacionados": [
+      "Infección del tracto urinario",
+      "Obstrucción anatómica (hiperplasia prostática)",
+      "Deterioro sensitivo-motor"
+    ],
+    "caracteristicas_definitorias": [
+      "Disuria (ardor al orinar)",
+      "Polaquiuria (micciones frecuentes de poca cantidad)",
+      "Urgencia urinaria",
+      "Nicturia",
+      "Retención urinaria / globo vesical"
+    ],
+    "noc": [
+      {
+        "codigo": "0503",
+        "etiqueta": "Eliminación urinaria",
+        "indicadores": [
+          "050301 Patrón de eliminación",
+          "050303 Cantidad de la orina",
+          "050309 Dolor al orinar",
+          "050331 Micción frecuente"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "0590",
+        "etiqueta": "Manejo de la eliminación urinaria",
+        "actividades": [
+          "Controlar periódicamente la eliminación urinaria, incluyendo la frecuencia, consistencia, olor, volumen y color.",
+          "Observar si hay signos y síntomas de retención urinaria o infección.",
+          "Obtener muestra a chorro medio para urocultivo si procede."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente mujer acude refiriendo intenso ardor al orinar (disuria), necesidad urgente de ir al baño cada 20 minutos y orina turbia de olor fuerte.",
+    "palabras_clave_voz": [
+      "eliminacion urinaria",
+      "disuria",
+      "infeccion urinaria",
+      "itu",
+      "retencion urinaria",
+      "00016",
+      "eliminación urinaria alterada",
+      "eliminación urinaria",
+      "manejo de la eliminación urinaria"
+    ]
+  },
+  {
+    "codigo": "00011",
+    "tipo": "REAL",
+    "dominio": "Dominio 3: Eliminación e intercambio",
+    "clase": "Clase 2: Función gastrointestinal",
+    "etiqueta": "Estreñimiento",
+    "definicion": "Disminución de la frecuencia normal de defecación, acompañada de eliminación dificultosa o incompleta de heces excesivamente duras y secas.",
+    "factores_relacionados": [
+      "Ingesta insuficiente de fibra y líquidos",
+      "Actividad física diaria inferior a la recomendada",
+      "Hábitos de defecación irregulares",
+      "Uso crónico de opioides o hierro"
+    ],
+    "caracteristicas_definitorias": [
+      "Disminución en la frecuencia de las deposiciones (< 3 por semana)",
+      "Heces duras, formadas y secas (Bristol 1-2)",
+      "Esfuerzo excesivo al defecar",
+      "Distensión y dolor abdominal",
+      "Ruidos intestinales hipoactivos"
+    ],
+    "noc": [
+      {
+        "codigo": "0501",
+        "etiqueta": "Eliminación intestinal",
+        "indicadores": [
+          "050101 Patrón de eliminación",
+          "050104 Cantidad de heces en relación con la dieta",
+          "050105 Heces blandas y formadas",
+          "050110 Estreñimiento"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "0450",
+        "etiqueta": "Manejo del estreñimiento/impactación",
+        "actividades": [
+          "Vigilar la aparición de signos y síntomas de estreñimiento y auscultar ruidos hidroaéreos.",
+          "Fomentar el aumento de la ingesta de líquidos y dieta rica en fibra si no está contraindicado.",
+          "Administrar laxantes o enemas según prescripción médica."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente hospitalizado en reposo absoluto refiere no realizar deposiciones desde hace 5 días, presenta abdomen distendido, dolor a la palpación y ruidos hidroaéreos disminuidos.",
+    "palabras_clave_voz": [
+      "estrenimiento",
+      "constipacion",
+      "heces duras",
+      "distension abdominal",
+      "00011",
+      "estreñimiento",
+      "eliminación intestinal",
+      "manejo del estreñimiento/impactación"
+    ]
+  },
+  {
+    "codigo": "00013",
+    "tipo": "REAL",
+    "dominio": "Dominio 3: Eliminación e intercambio",
+    "clase": "Clase 2: Función gastrointestinal",
+    "etiqueta": "Diarrea",
+    "definicion": "Eliminación de heces líquidas, no formadas, en más de tres episodios diarios.",
+    "factores_relacionados": [
+      "Proceso infeccioso gastrointestinal",
+      "Contaminación de alimentos o agua",
+      "Ansiedad o alto nivel de estrés",
+      "Efectos adversos de antibióticos o alimentación enteral"
+    ],
+    "caracteristicas_definitorias": [
+      "Eliminación de > 3 deposiciones líquidas en 24 horas (Bristol 6-7)",
+      "Dolor abdominal y cólicos",
+      "Urgencia intestinal",
+      "Ruidos intestinales hiperactivos"
+    ],
+    "noc": [
+      {
+        "codigo": "0501",
+        "etiqueta": "Eliminación intestinal",
+        "indicadores": [
+          "050101 Patrón de eliminación",
+          "050103 Color de las heces",
+          "050111 Diarrea",
+          "050129 Ruidos abdominales"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "0460",
+        "etiqueta": "Manejo de la diarrea",
+        "actividades": [
+          "Evaluar el perfil de la medicación por si hubiera efectos secundarios gastrointestinales.",
+          "Fomentar la reposición oral con sales de rehidratación y dieta astringente fraccionada.",
+          "Vigilar la piel perianal para evitar irritación o úlceras."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente pediátrico presenta 6 cámaras de deposiciones líquidas amarillentas en las últimas 12 horas, acompañadas de cólicos abdominales y ruidos hidroaéreos aumentados.",
+    "palabras_clave_voz": [
+      "diarrea",
+      "deposiciones liquidas",
+      "eda",
+      "gastroenteritis",
+      "00013",
+      "diarrea",
+      "eliminación intestinal",
+      "manejo de la diarrea"
+    ]
+  },
+  {
+    "codigo": "00030",
+    "tipo": "REAL",
+    "dominio": "Dominio 3: Eliminación e intercambio",
+    "clase": "Clase 4: Función respiratoria",
+    "etiqueta": "Intercambio de gases alterado",
+    "definicion": "Exceso o déficit en la oxigenación y/o eliminación de dióxido de carbono en la membrana alveolocapilar (Actualizado NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Desequilibrio en la ventilación-perfusión",
+      "Cambios en la membrana alveolocapilar (neumonía, edema agudo de pulmón)"
+    ],
+    "caracteristicas_definitorias": [
+      "Hipoxemia (PaO2 < 60 mmHg o SatO2 < 90%)",
+      "Hipercapnia (PaCO2 > 45 mmHg)",
+      "Cianosis peribucal o distal",
+      "Taquicardia",
+      "Aleteo nasal",
+      "Inquietud, confusión o somnolencia por hipoxia"
+    ],
+    "noc": [
+      {
+        "codigo": "0402",
+        "etiqueta": "Estado respiratorio: intercambio gaseoso",
+        "indicadores": [
+          "040208 Presión parcial del oxígeno en la sangre arterial (PaO2)",
+          "040211 Saturación de oxígeno (SpO2)",
+          "040206 Cianosis",
+          "040214 Equilibrio entre ventilación y perfusión"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3320",
+        "etiqueta": "Oxigenoterapia",
+        "actividades": [
+          "Mantener la permeabilidad de las vías aéreas y posición Semi-Fowler.",
+          "Administrar oxígeno suplementario a través de cánula binasal o máscara de reservorio según indicación.",
+          "Controlar la eficacia de la oxigenoterapia mediante pulsioximetría continua y gasometría arterial (AGA)."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con neumonía bilateral presenta saturación de oxígeno de 86% al aire ambiente, cianosis distal, inquietud y gasometría arterial con hipoxemia.",
+    "palabras_clave_voz": [
+      "intercambio de gases",
+      "deterioro del intercambio de gases",
+      "hipoxemia",
+      " desaturacion",
+      "oxigenoterapia",
+      "00030",
+      "intercambio de gases alterado",
+      "estado respiratorio: intercambio gaseoso",
+      "oxigenoterapia"
+    ]
+  },
+  {
+    "codigo": "00095",
+    "tipo": "REAL",
+    "dominio": "Dominio 4: Actividad/Reposo",
+    "clase": "Clase 1: Sueño/Reposo",
+    "etiqueta": "Insomnio",
+    "definicion": "Incapacidad para iniciar o mantener el sueño que perjudica el funcionamiento diurno.",
+    "factores_relacionados": [
+      "Factores estresantes",
+      "Ruido e iluminación ambiental hospitalaria",
+      "Malestar físico o dolor",
+      "Ansiedad"
+    ],
+    "caracteristicas_definitorias": [
+      "Dificultad para conciliar el sueño",
+      "Despertar temprano o interrupciones frecuentes del sueño",
+      "Expresa insatisfacción con el sueño",
+      "Fatiga y somnolencia diurna",
+      "Alteración del estado de ánimo"
+    ],
+    "noc": [
+      {
+        "codigo": "0004",
+        "etiqueta": "Sueño",
+        "indicadores": [
+          "000401 Horas de sueño",
+          "000403 Patrón del sueño",
+          "000404 Calidad del sueño",
+          "000406 Sueño interrumpido"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1850",
+        "etiqueta": "Mejorar el sueño",
+        "actividades": [
+          "Determinar el esquema de sueño/vigilia del paciente.",
+          "Ajustar el ambiente (luz tenue, reducción de ruidos nocturnos, temperatura agradable) para favorecer el sueño.",
+          "Agrupar los procedimientos de enfermería nocturnos para minimizar despertares."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente hospitalizado refiere que solo logra dormir 2 horas por noche debido al ruido de los monitores y la preocupación por su cirugía, mostrándose irritable y agotado en la mañana.",
+    "palabras_clave_voz": [
+      "insomnio",
+      "alteracion del patron del sueno",
+      "no puede dormir",
+      "descanso",
+      "00095",
+      "insomnio",
+      "sueño",
+      "mejorar el sueño"
+    ]
+  },
+  {
+    "codigo": "00085",
+    "tipo": "REAL",
+    "dominio": "Dominio 4: Actividad/Reposo",
+    "clase": "Clase 2: Actividad/Ejercicio",
+    "etiqueta": "Movilidad física alterada",
+    "definicion": "Limitación del movimiento independiente e intencionado del cuerpo o de una o más extremidades (anteriormente Deterioro de la movilidad física).",
+    "factores_relacionados": [
+      "Disminución de la fuerza o masa muscular",
+      "Dolor agudo osteomuscular",
+      "Rigidez articular o contracturas",
+      "Prescripción de restricción de movimientos",
+      "Deterioro neuromuscular"
+    ],
+    "caracteristicas_definitorias": [
+      "Disminución de la amplitud de movimientos",
+      "Dificultad para girarse en la cama",
+      "Inestabilidad postural",
+      "Enlentecimiento del movimiento",
+      "Alteración de la marcha"
+    ],
+    "noc": [
+      {
+        "codigo": "0208",
+        "etiqueta": "Movilidad",
+        "indicadores": [
+          "020801 Mantenimiento del equilibrio",
+          "020802 Mantenimiento de la posición corporal",
+          "020803 Movimiento muscular",
+          "020804 Movimiento articular"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "0221",
+        "etiqueta": "Terapia de ejercicios: ambulación",
+        "actividades": [
+          "Aconsejar al paciente que use un calzado que facilite la deambulación y evite lesiones.",
+          "Realizar ejercicios pasivos o activos asistidos de rango de movimiento articular.",
+          "Ayudar al paciente en el traslado y la deambulación utilizando apoyo seguro."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente postoperado de fractura de cadera presenta limitación para movilizar el miembro inferior derecho, dolor al giro en cama y requiere asistencia para sentarse al borde de la cama.",
+    "palabras_clave_voz": [
+      "movilidad fisica",
+      "deterioro de la movilidad",
+      "inmovilidad",
+      "fractura",
+      "postrado",
+      "00085",
+      "movilidad física alterada",
+      "movilidad",
+      "terapia de ejercicios: ambulación"
+    ]
+  },
+  {
+    "codigo": "00032",
+    "tipo": "REAL",
+    "dominio": "Dominio 4: Actividad/Reposo",
+    "clase": "Clase 4: Respuestas cardiovasculares/pulmonares",
+    "etiqueta": "Patrón respiratorio ineficaz",
+    "definicion": "La inspiración y/o espiración no proporciona una ventilación adecuada.",
+    "factores_relacionados": [
+      "Fatiga de los músculos respiratorios",
+      "Dolor torácico o abdominal postquirúrgico",
+      "Posición corporal que inhibe la expansión pulmonar",
+      "Ansiedad o hiperventilación"
+    ],
+    "caracteristicas_definitorias": [
+      "Disnea (sensación de falta de aire)",
+      "Taquipnea o bradipnea",
+      "Uso de los músculos accesorios para respirar (tiraje intercostal/subcostal)",
+      "Aleteo nasal",
+      "Ortopnea"
+    ],
+    "noc": [
+      {
+        "codigo": "0403",
+        "etiqueta": "Estado respiratorio: ventilación",
+        "indicadores": [
+          "040301 Frecuencia respiratoria",
+          "040302 Ritmo respiratorio",
+          "040303 Profundidad de la inspiración",
+          "040309 Utilización de los músculos accesorios"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3350",
+        "etiqueta": "Monitorización respiratoria",
+        "actividades": [
+          "Vigilar la frecuencia, ritmo, profundidad y esfuerzo de las respiraciones.",
+          "Observar si hay fatiga muscular diafragmática (movimiento paradójico) o tirajes.",
+          "Colocar al paciente en posición Fowler o Semi-Fowler para maximizar el potencial de ventilación."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con crisis asmática ingresa con frecuencia respiratoria de 32 por minuto, tiraje intercostal marcado, disnea a pequeños esfuerzos y dificultad para hablar frases completas.",
+    "palabras_clave_voz": [
+      "patron respiratorio ineficaz",
+      "disnea",
+      "taquipnea",
+      "tiraje",
+      "dificultad respiratoria",
+      "00032",
+      "patrón respiratorio ineficaz",
+      "estado respiratorio: ventilación",
+      "monitorización respiratoria"
+    ]
+  },
+  {
+    "codigo": "00029",
+    "tipo": "REAL",
+    "dominio": "Dominio 4: Actividad/Reposo",
+    "clase": "Clase 4: Respuestas cardiovasculares/pulmonares",
+    "etiqueta": "Gasto cardíaco disminuido",
+    "definicion": "La cantidad de sangre bombeada por el corazón es inadecuada para satisfacer las demandas metabólicas del cuerpo.",
+    "factores_relacionados": [
+      "Alteración de la frecuencia o el ritmo cardíaco (arritmias)",
+      "Alteración de la precarga, poscarga o contractilidad miocárdica"
+    ],
+    "caracteristicas_definitorias": [
+      "Hipotensión arterial",
+      "Taquicardia o bradicardia",
+      "Pulsos periféricos débiles o filiformes",
+      "Tiempo de llenado capilar > 2 segundos",
+      "Piel fría y sudorosa (diaforesis)",
+      "Oliguria",
+      "Fatiga extrema y disnea"
+    ],
+    "noc": [
+      {
+        "codigo": "0400",
+        "etiqueta": "Efectividad de la bomba cardíaca",
+        "indicadores": [
+          "040001 Presión arterial sistólica",
+          "040002 Presión arterial diastólica",
+          "040006 Pulsos periféricos",
+          "040019 Fracción de eyección"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "4040",
+        "etiqueta": "Cuidados cardíacos",
+        "actividades": [
+          "Monitorizar de forma continua el ECG para detectar arritmias o isquemia.",
+          "Evaluar signos vitales, llenado capilar y diuresis horaria.",
+          "Administrar fármacos inotrópicos o vasoactivos según prescripción médica."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente en unidad coronaria con insuficiencia cardíaca descompensada presenta presión arterial de 80/45 mmHg, pulsos periféricos débiles, piel fría, llenado capilar de 4 segundos y oliguria.",
+    "palabras_clave_voz": [
+      "gasto cardiaco disminuido",
+      "insuficiencia cardiaca",
+      "shock",
+      "hipotension",
+      "llenado capilar",
+      "00029",
+      "gasto cardíaco disminuido",
+      "efectividad de la bomba cardíaca",
+      "cuidados cardíacos"
+    ]
+  },
+  {
+    "codigo": "00108",
+    "tipo": "REAL",
+    "dominio": "Dominio 4: Actividad/Reposo",
+    "clase": "Clase 5: Autocuidado",
+    "etiqueta": "Capacidad de baño y/o higiene disminuida",
+    "definicion": "Deterioro de la habilidad para realizar o completar por sí mismo las actividades de baño e higiene personal (anteriormente Déficit de autocuidado: baño).",
+    "factores_relacionados": [
+      "Debilidad y cansancio severo",
+      "Dolor",
+      "Deterioro neuromuscular o musculoesquelético",
+      "Deterioro cognitivo"
+    ],
+    "caracteristicas_definitorias": [
+      "Dificultad para lavar el cuerpo",
+      "Dificultad para acceder al cuarto de baño",
+      "Dificultad para secar el cuerpo"
+    ],
+    "noc": [
+      {
+        "codigo": "0301",
+        "etiqueta": "Autocuidados: baño",
+        "indicadores": [
+          "030101 Entra y sale del cuarto de baño",
+          "030109 Se lava la parte superior e inferior del cuerpo",
+          "030111 Se seca el cuerpo"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1801",
+        "etiqueta": "Ayuda con los autocuidados: baño/higiene",
+        "actividades": [
+          "Realizar el baño en cama o asistir en la ducha manteniendo la privacidad y temperatura adecuada.",
+          "Inspeccionar el estado de la piel durante el baño en busca de zonas de presión.",
+          "Fomentar la participación activa del paciente hasta donde tolere."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con hemiparesia izquierda tras evento vascular cerebral no logra movilizarse al baño ni realizar su aseo matutino sin ayuda del personal de enfermería.",
+    "palabras_clave_voz": [
+      "deficit de autocuidado",
+      "autocuidado bano",
+      "higiene",
+      "bano en cama",
+      "00108",
+      "capacidad de baño y/o higiene disminuida",
+      "autocuidados: baño",
+      "ayuda con los autocuidados: baño/higiene"
+    ]
+  },
+  {
+    "codigo": "00128",
+    "tipo": "REAL",
+    "dominio": "Dominio 5: Percepción/Cognición",
+    "clase": "Clase 4: Cognición",
+    "etiqueta": "Confusión aguda",
+    "definicion": "Inicio brusco de alteraciones reversibles de la conciencia, atención, conocimiento y percepción que se desarrollan en un corto período de tiempo.",
+    "factores_relacionados": [
+      "Deshidratación",
+      "Alteración del ciclo sueño-vigilia",
+      "Retención urinaria o fecal",
+      "Hipoxemia o sepsis",
+      "Polifarmacia"
+    ],
+    "caracteristicas_definitorias": [
+      "Fluctuación en el nivel de conciencia y cognición",
+      "Agitación psicomotora o intranquilidad",
+      "Alucinaciones",
+      "Incapacidad para iniciar una conducta intencionada",
+      "Desorientación en tiempo y espacio"
+    ],
+    "noc": [
+      {
+        "codigo": "0901",
+        "etiqueta": "Orientación cognitiva",
+        "indicadores": [
+          "090101 Se autoidentifica",
+          "090103 Identifica el lugar donde está",
+          "090104 Identifica el día, mes y año correcto"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "4820",
+        "etiqueta": "Orientación de la realidad",
+        "actividades": [
+          "Dirigirse al paciente por su nombre de forma pausada y clara.",
+          "Informar al paciente acerca de la persona, el lugar y el tiempo si es necesario.",
+          "Mantener un entorno seguro, tranquilo y bien iluminado evitando contenciones innecesarias."
+        ]
+      }
+    ],
+    "caso_voz": "Adulto mayor hospitalizado por fractura se torna repentinamente desorientado durante la noche, intenta retirarse la vía periférica y dice que está en su casa en el año 1990.",
+    "palabras_clave_voz": [
+      "confusion aguda",
+      "delirium",
+      "desorientacion",
+      "agitacion",
+      "00128",
+      "confusión aguda",
+      "orientación cognitiva",
+      "orientación de la realidad"
+    ]
+  },
+  {
+    "codigo": "00126",
+    "tipo": "REAL",
+    "dominio": "Dominio 5: Percepción/Cognición",
+    "clase": "Clase 4: Cognición",
+    "etiqueta": "Conocimiento de salud inadecuado",
+    "definicion": "Carencia o deficiencia de información cognitiva relacionada con un tema específico de salud (anteriormente Conocimientos deficientes).",
+    "factores_relacionados": [
+      "Información insuficiente o errónea",
+      "Falta de exposición previa al procedimiento o tratamiento",
+      "Ansiedad que dificulta el aprendizaje"
+    ],
+    "caracteristicas_definitorias": [
+      "Declaraciones inexactas sobre un tema de salud",
+      "Seguimiento inexacto de las instrucciones",
+      "Realización inadecuada de una prueba o autocuidado"
+    ],
+    "noc": [
+      {
+        "codigo": "1813",
+        "etiqueta": "Conocimiento: régimen terapéutico",
+        "indicadores": [
+          "181301 Beneficios del tratamiento",
+          "181304 Efectos esperados del tratamiento",
+          "181306 Régimen de medicación prescrita"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5618",
+        "etiqueta": "Enseñanza: procedimiento/tratamiento",
+        "actividades": [
+          "Explicar el propósito y los pasos del procedimiento o tratamiento con lenguaje sencillo.",
+          "Dar tiempo al paciente para que haga preguntas y exprese sus inquietudes.",
+          "Utilizar la técnica de demostración y re-demostración para verificar que comprendió."
+        ]
+      }
+    ],
+    "caso_voz": "Madre primeriza al alta hospitalaria refiere no saber cómo limpiar el cordón umbilical de su recién nacido ni identificar los signos de alarma neonatal.",
+    "palabras_clave_voz": [
+      "conocimientos deficientes",
+      "conocimiento inadecuado",
+      "falta de informacion",
+      "educacion",
+      "00126",
+      "conocimiento de salud inadecuado",
+      "conocimiento: régimen terapéutico",
+      "enseñanza: procedimiento/tratamiento"
+    ]
+  },
+  {
+    "codigo": "00120",
+    "tipo": "REAL",
+    "dominio": "Dominio 6: Autopercepción",
+    "clase": "Clase 2: Autoestima",
+    "etiqueta": "Baja autoestima situacional",
+    "definicion": "Cambio de una percepción positiva a una percepción negativa del valor, la aceptación o la competencia propia en respuesta a una situación actual.",
+    "factores_relacionados": [
+      "Alteración de la imagen corporal (cirugía, amputación, ostomía)",
+      "Pérdida de funciones corporales o independencia",
+      "Cambio en el rol social"
+    ],
+    "caracteristicas_definitorias": [
+      "Verbalizaciones autonegativas",
+      "Subestima su habilidad para gestionar la situación",
+      "Conducta indecisa o no asertiva",
+      "Expresa sentimientos de inutilidad o vergüenza"
+    ],
+    "noc": [
+      {
+        "codigo": "1205",
+        "etiqueta": "Autoestima",
+        "indicadores": [
+          "120501 Verbalizaciones de autoaceptación",
+          "120502 Aceptación de las propias limitaciones",
+          "120507 Comunicación abierta"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5400",
+        "etiqueta": "Potenciación de la autoestima",
+        "actividades": [
+          "Animar al paciente a identificar sus virtudes y avances diarios.",
+          "Mostrar confianza en la capacidad del paciente para controlar su nueva situación clínica.",
+          "Facilitar un entorno de escucha empática sin juicios."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente de 45 años a quien se le realizó una colostomía evita mirarse el abdomen durante la curación y comenta llorando que ya no servirá para nada en su familia.",
+    "palabras_clave_voz": [
+      "baja autoestima",
+      "autoestima situacional",
+      "imagen corporal",
+      "ostomia",
+      "00120",
+      "baja autoestima situacional",
+      "autoestima",
+      "potenciación de la autoestima"
+    ]
+  },
+  {
+    "codigo": "00061",
+    "tipo": "REAL",
+    "dominio": "Dominio 7: Rol/Relaciones",
+    "clase": "Clase 1: Roles de cuidador",
+    "etiqueta": "Carga excesiva de cuidados",
+    "definicion": "Dificultad multidimensional experimentada por la persona que brinda cuidados a un familiar o allegado dependiente (Actualizado NANDA 2024-2026, antes Cansancio del rol de cuidador).",
+    "factores_relacionados": [
+      "Responsabilidades de cuidado durante las 24 horas",
+      "Duración prolongada de los cuidados",
+      "Descanso y recreación insuficientes para el cuidador",
+      "Apoyo familiar o institucional insuficiente"
+    ],
+    "caracteristicas_definitorias": [
+      "Fatiga física y emocional del cuidador",
+      "Alteración del sueño en el cuidador",
+      "Expresa dificultad para realizar las tareas requeridas",
+      "Aislamiento social",
+      "Somatización o cefalea tensional"
+    ],
+    "noc": [
+      {
+        "codigo": "2208",
+        "etiqueta": "Factores estresantes del cuidador familiar",
+        "indicadores": [
+          "220801 Factores estresantes referidos por el cuidador",
+          "220802 Limitaciones físicas del cuidador",
+          "220813 Falta de descanso"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "7040",
+        "etiqueta": "Apoyo al cuidador principal",
+        "actividades": [
+          "Determinar el nivel de conocimientos y la carga emocional del cuidador.",
+          "Animar al cuidador a participar en grupos de apoyo y turnarse las tareas con otros familiares.",
+          "Enseñar técnicas de movilización ergonómica y manejo del estrés."
+        ]
+      }
+    ],
+    "caso_voz": "Hija única que cuida día y noche a su padre postrado con Alzheimer refiere agotamiento extremo, dolor de espalda crónico, llanto fácil y que no sale de casa hace meses.",
+    "palabras_clave_voz": [
+      "cansancio del rol de cuidador",
+      "carga excesiva de cuidados",
+      "cuidador",
+      "sobrecarga del cuidador",
+      "00061",
+      "carga excesiva de cuidados",
+      "factores estresantes del cuidador familiar",
+      "apoyo al cuidador principal"
+    ]
+  },
+  {
+    "codigo": "00208",
+    "tipo": "PROMOCION",
+    "dominio": "Dominio 8: Sexualidad",
+    "clase": "Clase 3: Reproducción",
+    "etiqueta": "Disposición para mejorar el proceso de maternidad",
+    "definicion": "Patrón de preparación y mantenimiento de un embarazo, parto y cuidado del recién nacido saludables que puede ser fortalecido.",
+    "factores_relacionados": [
+      "Motivación materna y familiar"
+    ],
+    "caracteristicas_definitorias": [
+      "Expresa deseo de mejorar las técnicas de cuidado del recién nacido y lactancia materna",
+      "Expresa deseo de mejorar el estilo de vida prenatal/posparto",
+      "Asiste regularmente a los controles prenatales"
+    ],
+    "noc": [
+      {
+        "codigo": "1800",
+        "etiqueta": "Conocimiento: lactancia materna",
+        "indicadores": [
+          "180001 Beneficios de la lactancia materna",
+          "180005 Técnica adecuada para amamantar al bebé",
+          "180015 Signos de alimentación materna adecuada"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5244",
+        "etiqueta": "Asesoramiento en la lactancia",
+        "actividades": [
+          "Informar sobre los beneficios psicológicos y fisiológicos de la lactancia materna exclusiva.",
+          "Corregir y supervisar el agarre adecuado del lactante al pecho para prevenir grietas del pezón.",
+          "Enseñar técnicas de extracción y conservación de la leche materna."
+        ]
+      }
+    ],
+    "caso_voz": "Puérpera inmediata manifiesta entusiasmo por dar lactancia materna exclusiva a su bebé y solicita a la enfermera que le enseñe las mejores posiciones de agarre.",
+    "palabras_clave_voz": [
+      "proceso de maternidad",
+      "lactancia materna",
+      "puerpera",
+      "recien nacido",
+      "00208",
+      "disposición para mejorar el proceso de maternidad",
+      "conocimiento: lactancia materna",
+      "asesoramiento en la lactancia"
+    ]
+  },
+  {
+    "codigo": "00146",
+    "tipo": "REAL",
+    "dominio": "Dominio 9: Afrontamiento/Tolerancia al estrés",
+    "clase": "Clase 2: Respuestas de afrontamiento",
+    "etiqueta": "Ansiedad",
+    "definicion": "Respuesta emocional a una amenaza difusa en la que el individuo anticipa un peligro inminente inespecífico, una catástrofe o una desgracia.",
+    "factores_relacionados": [
+      "Amenaza en el estado actual de salud",
+      "Entorno hospitalario desconocido o preoperatorio",
+      "Factores estresantes importantes",
+      "Dolor no controlado"
+    ],
+    "caracteristicas_definitorias": [
+      "Nerviosismo, inquietud o agitación",
+      "Expresa angustia y temor intenso",
+      "Taquicardia y aumento de la presión arterial",
+      "Sudoración palmar o temblor de manos",
+      "Voz temblorosa e insomnio"
+    ],
+    "noc": [
+      {
+        "codigo": "1211",
+        "etiqueta": "Nivel de ansiedad",
+        "indicadores": [
+          "121101 Desasosiego",
+          "121105 Inquietud",
+          "121117 Ansiedad verbalizada",
+          "121120 Aumento de la frecuencia del pulso"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5820",
+        "etiqueta": "Disminución de la ansiedad",
+        "actividades": [
+          "Utilizar un enfoque sereno, empático y que dé seguridad al paciente.",
+          "Explicar todos los procedimientos, incluyendo las posibles sensaciones que se han de experimentar.",
+          "Instruir al paciente sobre el uso de técnicas de respiración lenta y relajación."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente programada para cirugía abdominal en una hora se encuentra llorosa, con manos temblorosas, frecuencia cardíaca de 108 lpm y refiere mucho miedo a la anestesia.",
+    "palabras_clave_voz": [
+      "ansiedad",
+      "miedo",
+      "temor",
+      "nerviosismo",
+      "preoperatorio",
+      "00146",
+      "ansiedad",
+      "nivel de ansiedad",
+      "disminución de la ansiedad"
+    ]
+  },
+  {
+    "codigo": "00069",
+    "tipo": "REAL",
+    "dominio": "Dominio 9: Afrontamiento/Tolerancia al estrés",
+    "clase": "Clase 2: Respuestas de afrontamiento",
+    "etiqueta": "Afrontamiento ineficaz",
+    "definicion": "Patrón de apreciación no válida sobre los agentes estresantes, con esfuerzos cognitivos y/o conductuales que fracasan en gestionar las demandas relacionadas con el bienestar.",
+    "factores_relacionados": [
+      "Grado de amenaza percibido alto",
+      "Falta de confianza en la capacidad para afrontar la situación",
+      "Apoyo social ineficaz",
+      "Crisis situacional o diagnóstico grave"
+    ],
+    "caracteristicas_definitorias": [
+      "Expresa incapacidad para pedir ayuda o afrontar el problema",
+      "Resolución ineficaz de problemas",
+      "Alteración en la concentración",
+      "Conductas de evitación o negación del problema de salud"
+    ],
+    "noc": [
+      {
+        "codigo": "1302",
+        "etiqueta": "Afrontamiento de problemas",
+        "indicadores": [
+          "130201 Identifica patrones de superación eficaces",
+          "130205 Verbaliza aceptación de la situación",
+          "130212 Utiliza estrategias de superación efectivas"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5230",
+        "etiqueta": "Mejorar el afrontamiento",
+        "actividades": [
+          "Ayudar al paciente a desglosar los objetivos complejos en pasos pequeños y manejables.",
+          "Valorar la comprensión del paciente del proceso de enfermedad.",
+          "Fomentar la expresión abierta de sentimientos, percepciones y miedos."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente recién diagnosticado con insuficiencia renal se niega a hablar sobre el inicio de hemodiálisis, rechaza las visitas y afirma que no puede lidiar con esta noticia.",
+    "palabras_clave_voz": [
+      "afrontamiento ineficaz",
+      "negacion",
+      "estres",
+      "crisis",
+      "00069",
+      "afrontamiento ineficaz",
+      "afrontamiento de problemas",
+      "mejorar el afrontamiento"
+    ]
+  },
+  {
+    "codigo": "00066",
+    "tipo": "REAL",
+    "dominio": "Dominio 10: Principios vitales",
+    "clase": "Clase 3: Congruencia entre valores/creencias/acciones",
+    "etiqueta": "Sufrimiento espiritual",
+    "definicion": "Estado de sufrimiento relacionado con el deterioro de la habilidad para experimentar el sentido de la vida a través de conexiones consigo mismo, el mundo o un poder superior.",
+    "factores_relacionados": [
+      "Proceso de agonía o enfermedad terminal",
+      "Pérdida de un ser querido",
+      "Dolor crónico severo",
+      "Aislamiento de su comunidad o familia"
+    ],
+    "caracteristicas_definitorias": [
+      "Cuestiona el sentido de la vida y del propio sufrimiento",
+      "Expresa vacío interior o desamparo",
+      "Llanto, angustia existencial",
+      "Solicita asistencia espiritual"
+    ],
+    "noc": [
+      {
+        "codigo": "2001",
+        "etiqueta": "Salud espiritual",
+        "indicadores": [
+          "200101 Expresión de esperanza",
+          "200102 Expresión de sentido y propósito de la vida",
+          "200103 Expresión de serenidad"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "5420",
+        "etiqueta": "Apoyo espiritual",
+        "actividades": [
+          "Estar abierto a las expresiones del paciente sobre soledad, impotencia y dudas existenciales.",
+          "Tratar al individuo con dignidad, respeto y escucha activa.",
+          "Facilitar las visitas del consejero espiritual o familiares según deseo del paciente."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente oncológico en cuidados paliativos expresa entre lágrimas que siente que su vida ha perdido sentido y se pregunta por qué le tocó vivir esta enfermedad.",
+    "palabras_clave_voz": [
+      "sufrimiento espiritual",
+      "paliativos",
+      "espiritual",
+      "sentido de la vida",
+      "00066",
+      "sufrimiento espiritual",
+      "salud espiritual",
+      "apoyo espiritual"
+    ]
   },
   {
     "codigo": "00004",
@@ -37,14 +1386,23 @@
     "dominio": "Dominio 11: Seguridad/Protección",
     "clase": "Clase 1: Infección",
     "etiqueta": "Riesgo de infección",
-    "definicion": "Susceptibilidad a sufrir una invasión y multiplicación de organismos patógenos.",
-    "factores_relacionados": ["Procedimientos invasivos (catéter venoso, sonda)", "Alteración de la integridad de la piel", "Desnutrición", "Inmunosupresión"],
+    "definicion": "Susceptibilidad a sufrir una invasión y multiplicación de organismos patógenos que puede comprometer la salud.",
+    "factores_relacionados": [
+      "Alteración de la integridad cutánea (herida quirúrgica)",
+      "Procedimientos invasivos (catéter venoso periférico o central, sonda vesical)",
+      "Desnutrición",
+      "Inmunosupresión"
+    ],
     "caracteristicas_definitorias": [],
     "noc": [
       {
         "codigo": "1902",
         "etiqueta": "Control del riesgo: proceso infeccioso",
-        "indicadores": ["190220 Identifica los factores de riesgo", "190208 Modifica el estilo de vida para reducir el riesgo"]
+        "indicadores": [
+          "190220 Identifica los factores de riesgo de infección",
+          "190208 Mantiene un entorno limpio y aséptico",
+          "190219 Reconoce signos y síntomas de infección"
+        ]
       }
     ],
     "nic": [
@@ -52,13 +1410,508 @@
         "codigo": "6540",
         "etiqueta": "Control de infecciones",
         "actividades": [
-          "Lavarse las manos antes y después de cada actividad de cuidado.",
-          "Asegurar una técnica de cuidados de heridas adecuada y aséptica.",
-          "Vigilar signos de flogosis en zonas de venopunción."
+          "Realizar higiene de manos clínica en los 5 momentos de la OMS.",
+          "Mantener técnica estrictamente aséptica en la curación de heridas y manejo de vías invasivas.",
+          "Vigilar signos de flogosis local (calor, rubor, edema, dolor o secreción purulenta)."
         ]
       }
     ],
-    "caso_voz": "Paciente postoperado inmediato con herida quirúrgica abdominal y vía periférica permeable, sin fiebre actual pero con barreras cutáneas alteradas.",
-    "palabras_clave_voz": ["riesgo de infeccion", "00004", "control de infecciones", "asepsia", "lavado de manos"]
+    "caso_voz": "Paciente postoperado inmediato con herida quirúrgica abdominal, drenaje laminar y vía periférica permeable, sin fiebre actual pero con barreras primarias expuestas.",
+    "palabras_clave_voz": [
+      "riesgo de infeccion",
+      "infeccion",
+      "asepsia",
+      "flogosis",
+      "cateter",
+      "herida quirurgica",
+      "00004",
+      "riesgo de infección",
+      "control del riesgo: proceso infeccioso",
+      "control de infecciones"
+    ]
+  },
+  {
+    "codigo": "00031",
+    "tipo": "REAL",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 2: Lesión física",
+    "etiqueta": "Limpieza ineficaz de las vías aéreas",
+    "definicion": "Capacidad reducida para eliminar las secreciones u obstrucciones del tracto respiratorio para mantener las vías aéreas permeables.",
+    "factores_relacionados": [
+      "Mucosidad excesiva o tapón mucoso",
+      "Secreciones bronquiales espesas",
+      "Tos ineficaz por debilidad muscular o dolor",
+      "Deshidratación de la vía aérea"
+    ],
+    "caracteristicas_definitorias": [
+      "Sonidos respiratorios adventicios (roncus, sibilancias, estertores)",
+      "Tos inefectiva o ausente",
+      "Esputo en cantidad excesiva",
+      "Disnea e inquietud"
+    ],
+    "noc": [
+      {
+        "codigo": "0410",
+        "etiqueta": "Estado respiratorio: permeabilidad de las vías respiratorias",
+        "indicadores": [
+          "041004 Frecuencia respiratoria",
+          "041007 Capacidad de eliminar secreciones",
+          "041012 Ruidos respiratorios patológicos"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3140",
+        "etiqueta": "Manejo de las vías aéreas",
+        "actividades": [
+          "Auscultar ambos campos pulmonares para identificar zonas de acumulación de secreciones.",
+          "Fomentar la hidratación sistémica y realizar nebulizaciones con suero fisiológico según indicación.",
+          "Enseñar técnicas de tos asistida, fisioterapia respiratoria o realizar aspiración de secreciones si procede."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente con bronquitis aguda presenta abundante secreción bronquial espesa que no logra expectorar, auscultándose roncus bilaterales y tos débil.",
+    "palabras_clave_voz": [
+      "limpieza ineficaz de las vias aereas",
+      "secreciones",
+      "roncus",
+      "flema",
+      "nebulizacion",
+      "aspiracion",
+      "00031",
+      "limpieza ineficaz de las vías aéreas",
+      "estado respiratorio: permeabilidad de las vías respiratorias",
+      "manejo de las vías aéreas"
+    ]
+  },
+  {
+    "codigo": "00312",
+    "tipo": "REAL",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 2: Lesión física",
+    "etiqueta": "Lesión por presión en el adulto",
+    "definicion": "Daño localizado en la piel y/o tejido subyacente, por lo general sobre una prominencia ósea, como resultado de la presión o la presión en combinación con el cizallamiento (Diagnóstico oficial NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Presión prolongada sobre prominencias óseas",
+      "Fuerzas de fricción y cizallamiento",
+      "Inmovilidad física en cama o silla",
+      "Humedad excesiva por incontinencia",
+      "Desnutrición proteico-calórica"
+    ],
+    "caracteristicas_definitorias": [
+      "Eritema no blanqueable en piel intacta (Estadio I)",
+      "Pérdida de espesor parcial de la piel con dermis expuesta (Estadio II)",
+      "Pérdida de espesor total del tejido en zona sacra o talones"
+    ],
+    "noc": [
+      {
+        "codigo": "1101",
+        "etiqueta": "Integridad tisular: piel y membranas mucosas",
+        "indicadores": [
+          "110101 Temperatura de la piel",
+          "110113 Integridad de la piel",
+          "110115 Lesiones cutáneas",
+          "110121 Eritema"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3520",
+        "etiqueta": "Cuidados de las úlceras por presión",
+        "actividades": [
+          "Realizar cambios posturales programados cada 2 horas utilizando reloj de rotación y almohadas de descarga.",
+          "Limpiar la lesión con solución salina fisiológica y aplicar apósito hidrocoloide o de espuma según estadio.",
+          "Mantener la piel limpia, seca e hidratada con ácidos grasos hiperoxigenados en zonas de apoyo."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente encamado presenta en la región sacra una zona de eritema que no blanquea a la digitopresión y pérdida parcial de la epidermis de 3 centímetros.",
+    "palabras_clave_voz": [
+      "lesion por presion",
+      "ulcera por presion",
+      "upp",
+      "escaras",
+      "deterioro de la integridad cutanea",
+      "sacro",
+      "00312",
+      "lesión por presión en el adulto",
+      "integridad tisular: piel y membranas mucosas",
+      "cuidados de las úlceras por presión"
+    ]
+  },
+  {
+    "codigo": "00303",
+    "tipo": "RIESGO",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 2: Lesión física",
+    "etiqueta": "Riesgo de caídas en el adulto",
+    "definicion": "Susceptibilidad del adulto de experimentar un evento que resulte en acabar tumbado en el suelo o en otro nivel inferior por descuido (Código actualizado NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Disminución de la fuerza en las extremidades inferiores",
+      "Alteración del equilibrio y la marcha",
+      "Hipotensión ortostática o mareos",
+      "Uso de sedantes o antihipertensivos",
+      "Iluminación inadecuada o pisos resbaladizos"
+    ],
+    "caracteristicas_definitorias": [],
+    "noc": [
+      {
+        "codigo": "1909",
+        "etiqueta": "Conducta de prevención de caídas",
+        "indicadores": [
+          "190901 Utiliza dispositivos de ayuda correctamente",
+          "190903 Coloca barreras para prevenir caídas",
+          "190919 Solicita ayuda para movilizarse"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "6490",
+        "etiqueta": "Prevención de caídas",
+        "actividades": [
+          "Aplicar escala de valoración de riesgo de caídas (Downton o Morse) al ingreso y en cada turno.",
+          "Mantener la cama en posición baja, con frenos activados y barandas laterales elevadas si corresponde.",
+          "Colocar el timbre de llamada al alcance del paciente y asistirlo al levantarse."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente de 76 años recién medicado con antihipertensivos y diuréticos refiere mareos al sentarse en la cama e intenta ir solo al baño durante el turno nocturno.",
+    "palabras_clave_voz": [
+      "riesgo de caidas",
+      "caidas",
+      "morse",
+      "downton",
+      "barandas",
+      "00303",
+      "riesgo de caídas en el adulto",
+      "conducta de prevención de caídas",
+      "prevención de caídas"
+    ]
+  },
+  {
+    "codigo": "00007",
+    "tipo": "REAL",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 6: Termorregulación",
+    "etiqueta": "Hipertermia",
+    "definicion": "Temperatura corporal central superior al rango normal diurno a causa del fallo de la termorregulación.",
+    "factores_relacionados": [
+      "Deshidratación",
+      "Proceso infeccioso o sepsis",
+      "Actividad vigorosa",
+      "Exposición a ambiente excesivamente cálido"
+    ],
+    "caracteristicas_definitorias": [
+      "Temperatura corporal > 38.0 °C",
+      "Piel caliente al tacto",
+      "Rubor o enrojecimiento facial",
+      "Taquicardia",
+      "Taquipnea",
+      "Diaforesis o escalofríos"
+    ],
+    "noc": [
+      {
+        "codigo": "0800",
+        "etiqueta": "Termorregulación",
+        "indicadores": [
+          "080001 Temperatura cutánea aumentada",
+          "080019 Hipertermia",
+          "080013 Frecuencia respiratoria",
+          "080012 Frecuencia del pulso radial"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3740",
+        "etiqueta": "Tratamiento de la fiebre",
+        "actividades": [
+          "Controlar la temperatura corporal y otros signos vitales de forma horaria.",
+          "Aligerar las coberturas de la cama y aplicar medios físicos tibios.",
+          "Administrar medicamentos antipiréticos según prescripción médica y fomentar la hidratación."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente ingresa por emergencia con temperatura axilar de 39.2 grados, piel caliente al tacto, rubor facial y frecuencia cardíaca de 114 latidos por minuto.",
+    "palabras_clave_voz": [
+      "hipertermia",
+      "fiebre",
+      "temperatura alta",
+      "antipireticos",
+      "medios fisicos",
+      "00007",
+      "hipertermia",
+      "termorregulación",
+      "tratamiento de la fiebre"
+    ]
+  },
+  {
+    "codigo": "00006",
+    "tipo": "REAL",
+    "dominio": "Dominio 11: Seguridad/Protección",
+    "clase": "Clase 6: Termorregulación",
+    "etiqueta": "Hipotermia",
+    "definicion": "Temperatura corporal central inferior al rango normal diurno en individuos > 28 días de vida.",
+    "factores_relacionados": [
+      "Exposición a un entorno frío o quirófano",
+      "Ropa inadecuada",
+      "Desnutrición o disminución de la tasa metabólica",
+      "Edades extremas"
+    ],
+    "caracteristicas_definitorias": [
+      "Temperatura corporal < 35.5 °C",
+      "Piel fría al tacto y palidez",
+      "Piloerección y escalofríos",
+      "Acrocianosis o lechos ungueales cianóticos",
+      "Llenado capilar lento"
+    ],
+    "noc": [
+      {
+        "codigo": "0800",
+        "etiqueta": "Termorregulación",
+        "indicadores": [
+          "080020 Hipotermia",
+          "080007 Cambios de coloración cutánea",
+          "080015 Comodidad térmica referida"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "3800",
+        "etiqueta": "Tratamiento de la hipotermia",
+        "actividades": [
+          "Retirar al paciente del ambiente frío y colocar mantas térmicas o precalentadas.",
+          "Monitorizar la temperatura central y los signos vitales cada 30 minutos.",
+          "Administrar líquidos intravenosos tibios si está indicado."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente sale de sala de operaciones tras cirugía prolongada con temperatura de 35.1 grados, piel fría y pálida, escalofríos intensos y acrocianosis distal.",
+    "palabras_clave_voz": [
+      "hipotermia",
+      "frio",
+      "temperatura baja",
+      "escalofrios",
+      "00006",
+      "hipotermia",
+      "termorregulación",
+      "tratamiento de la hipotermia"
+    ]
+  },
+  {
+    "codigo": "00132",
+    "tipo": "REAL",
+    "dominio": "Dominio 12: Confort",
+    "clase": "Clase 1: Confort físico",
+    "etiqueta": "Dolor agudo",
+    "definicion": "Experiencia sensitiva y emocional desagradable ocasionada por una lesión tisular real o potencial, de inicio súbito o lento y con una duración inferior a 3 meses.",
+    "factores_relacionados": [
+      "Agentes lesivos biológicos (infección, inflamación)",
+      "Agentes lesivos físicos (incisión quirúrgica, traumatismo, fractura)",
+      "Agentes lesivos químicos"
+    ],
+    "caracteristicas_definitorias": [
+      "Informe verbal de dolor (EVA de 1 a 10)",
+      "Expresión facial de dolor (muecas, ceño fruncido)",
+      "Conducta defensiva o de protección de la zona afectada",
+      "Taquicardia, diaforesis y dilatación pupilar"
+    ],
+    "noc": [
+      {
+        "codigo": "2102",
+        "etiqueta": "Nivel del dolor",
+        "indicadores": [
+          "210201 Dolor referido",
+          "210206 Expresiones faciales de dolor",
+          "210208 Inquietud",
+          "210212 Presión arterial"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1400",
+        "etiqueta": "Manejo del dolor: agudo",
+        "actividades": [
+          "Realizar una valoración exhaustiva del dolor que incluya localización, aparición, duración, intensidad (Escala EVA) y factores desencadenantes.",
+          "Administrar analgésicos prescritos y reevaluar el alivio del dolor a los 30 minutos.",
+          "Proporcionar medidas no farmacológicas de alivio (posición antálgica, relajación, frío/calor)."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente postoperado de apendicectomía refiere dolor intenso en fosa ilíaca derecha con puntuación EVA 8 sobre 10, presenta facies álgica, taquicardia y se protege el abdomen.",
+    "palabras_clave_voz": [
+      "dolor agudo",
+      "dolor",
+      "eva",
+      "analgesia",
+      "facies algica",
+      "00132",
+      "dolor agudo",
+      "nivel del dolor",
+      "manejo del dolor: agudo"
+    ]
+  },
+  {
+    "codigo": "00133",
+    "tipo": "REAL",
+    "dominio": "Dominio 12: Confort",
+    "clase": "Clase 1: Confort físico",
+    "etiqueta": "Dolor crónico",
+    "definicion": "Experiencia sensitiva y emocional desagradable ocasionada por una lesión tisular real o potencial, con una duración superior a 3 meses.",
+    "factores_relacionados": [
+      "Afección musculoesquelética crónica (artritis, lumbalgia)",
+      "Compresión nerviosa o neuropatía",
+      "Infiltración tumoral"
+    ],
+    "caracteristicas_definitorias": [
+      "Informe verbal de dolor persistente > 3 meses",
+      "Alteración de la capacidad para continuar con las actividades previas",
+      "Fatiga y alteración del patrón del sueño",
+      "Anorexia"
+    ],
+    "noc": [
+      {
+        "codigo": "1605",
+        "etiqueta": "Control del dolor",
+        "indicadores": [
+          "160502 Reconoce el comienzo del dolor",
+          "160504 Utiliza medidas de alivio no analgésicas",
+          "160511 Refiere dolor controlado"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1415",
+        "etiqueta": "Manejo del dolor: crónico",
+        "actividades": [
+          "Evaluar el impacto de la experiencia del dolor crónico en la calidad de vida del paciente (sueño, apetito, actividad y estado de ánimo).",
+          "Ajustar el esquema analgésico multimodal en coordinación médica.",
+          "Fomentar terapias complementarias como fisioterapia suave, termoterapia y relajación guiada."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente de 68 años con osteoartrosis severa de rodillas refiere dolor articular diario desde hace 8 meses que le impide caminar al mercado y le interrumpe el sueño.",
+    "palabras_clave_voz": [
+      "dolor cronico",
+      "artrosis",
+      "dolor persistente",
+      "00133",
+      "dolor crónico",
+      "control del dolor",
+      "manejo del dolor: crónico"
+    ]
+  },
+  {
+    "codigo": "00134",
+    "tipo": "REAL",
+    "dominio": "Dominio 12: Confort",
+    "clase": "Clase 1: Confort físico",
+    "etiqueta": "Náuseas",
+    "definicion": "Fenómeno subjetivo desagradable en la parte posterior de la garganta y el estómago que puede o no dar lugar a vómitos.",
+    "factores_relacionados": [
+      "Distensión o irritación gástrica",
+      "Dolor posoperatorio o efecto de anestésicos/opioides",
+      "Embarazo",
+      "Quimioterapia"
+    ],
+    "caracteristicas_definitorias": [
+      "Informe verbal de náuseas ('ganas de vomitar')",
+      "Aumento de la salivación (sialorrea)",
+      "Aversión a los alimentos",
+      "Palidez y sudoración fría",
+      "Arcadas"
+    ],
+    "noc": [
+      {
+        "codigo": "2107",
+        "etiqueta": "Severidad de las náuseas y los vómitos",
+        "indicadores": [
+          "210701 Frecuencia de las náuseas",
+          "210702 Intensidad de las náuseas",
+          "210704 Frecuencia de las arcadas"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "1450",
+        "etiqueta": "Manejo de las náuseas",
+        "actividades": [
+          "Identificar factores precipitantes de las náuseas y retirar olores fuertes del entorno.",
+          "Administrar antieméticos prescritos de forma oportuna.",
+          "Ofrecer líquidos fríos y claros en pequeñas cantidades cuando ceda el reflejo nauseoso."
+        ]
+      }
+    ],
+    "caso_voz": "Paciente en sala de recuperación posanestésica refiere intensa sensación de asco en el estómago, presenta sialorrea, palidez facial y arcadas al oler la comida.",
+    "palabras_clave_voz": [
+      "nauseas",
+      "vomitos",
+      "arcadas",
+      "antiemeticos",
+      "00134",
+      "náuseas",
+      "severidad de las náuseas y los vómitos",
+      "manejo de las náuseas"
+    ]
+  },
+  {
+    "codigo": "00305",
+    "tipo": "REAL",
+    "dominio": "Dominio 13: Crecimiento/Desarrollo",
+    "clase": "Clase 2: Desarrollo",
+    "etiqueta": "Retraso en el desarrollo infantil",
+    "definicion": "Niño que no alcanza los hitos del desarrollo esperados para su edad dentro de una ventana de variación normal (Diagnóstico actualizado NANDA 2024-2026).",
+    "factores_relacionados": [
+      "Estimulación ambiental e interacción inadecuadas",
+      "Nutrición inadecuada en la primera infancia",
+      "Prematuridad",
+      "Hospitalizaciones prolongadas"
+    ],
+    "caracteristicas_definitorias": [
+      "Dificultad para realizar habilidades motoras gruesas o finas acordes a su edad",
+      "Dificultad en el desarrollo del lenguaje expresivo o receptivo",
+      "Desempeño inferior en las escalas de evaluación del desarrollo (CRED / EEDP / TEPSI)"
+    ],
+    "noc": [
+      {
+        "codigo": "0120",
+        "etiqueta": "Desarrollo infantil",
+        "indicadores": [
+          "012001 Hitos del desarrollo motor grueso",
+          "012002 Hitos del desarrollo motor fino",
+          "012005 Hitos del lenguaje y comunicación"
+        ]
+      }
+    ],
+    "nic": [
+      {
+        "codigo": "8274",
+        "etiqueta": "Fomentar el desarrollo: niño",
+        "actividades": [
+          "Realizar tamizaje del desarrollo psicomotor en el consultorio de CRED.",
+          "Enseñar a los padres actividades de estimulación temprana mediante el juego diario.",
+          "Coordinar derivación oportuna a terapia de lenguaje o terapia física si se detecta rezago."
+        ]
+      }
+    ],
+    "caso_voz": "En el control CRED de un niño de 24 meses se observa que aún no dice palabras sueltas con sentido, no logra apilar dos cubos ni patea una pelota según su edad.",
+    "palabras_clave_voz": [
+      "retraso en el desarrollo",
+      "desarrollo infantil",
+      "cred",
+      "estimulacion temprana",
+      "pediatria",
+      "00305",
+      "retraso en el desarrollo infantil",
+      "desarrollo infantil",
+      "fomentar el desarrollo: niño"
+    ]
   }
 ]

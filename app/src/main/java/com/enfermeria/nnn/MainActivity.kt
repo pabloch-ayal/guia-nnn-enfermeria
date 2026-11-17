@@ -179,6 +179,12 @@ fun PantallaExplorar(
     var busqueda by remember { mutableStateOf("") }
     var escuchandoBusqueda by remember { mutableStateOf(false) }
     var filtroTipo by remember { mutableStateOf("TODOS") }
+    var filtroDominio by remember { mutableStateOf("TODOS") }
+    val listaDominios = remember(diagnosticos) {
+        listOf("TODOS") + diagnosticos.map { it.dominio }.distinct().sortedBy {
+            Regex("\\d+").find(it)?.value?.toIntOrNull() ?: 99
+        }
+    }
     val permisoMicBusqueda = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { concedido ->
@@ -187,11 +193,17 @@ fun PantallaExplorar(
 
     val filtrados = diagnosticos.filter { diag ->
         val coincideTipo = filtroTipo == "TODOS" || diag.tipo == filtroTipo
-        val coincideTexto = busqueda.isBlank() ||
-            diag.etiqueta.contains(busqueda, true) ||
-            diag.codigo.contains(busqueda, true) ||
-            diag.caracteristicas_definitorias.any { it.contains(busqueda, true) }
-        coincideTipo && coincideTexto
+        val coincideDominio = filtroDominio == "TODOS" || diag.dominio == filtroDominio
+        val q = busqueda.trim()
+        val coincideTexto = q.isBlank() ||
+            diag.etiqueta.contains(q, true) ||
+            diag.codigo.contains(q, true) ||
+            diag.dominio.contains(q, true) ||
+            diag.definicion.contains(q, true) ||
+            diag.factores_relacionados.any { it.contains(q, true) } ||
+            diag.caracteristicas_definitorias.any { it.contains(q, true) } ||
+            diag.palabras_clave_voz.any { it.contains(q, true) }
+        coincideTipo && coincideDominio && coincideTexto
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -270,12 +282,12 @@ fun PantallaExplorar(
             }
         }
 
-        // Chips de Filtro Rápido con Animación
+        // Chips de Filtro Rápido por Tipo
         LazyRow(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(listOf("TODOS" to "✨ Todos", "REAL" to "🔴 Diagnósticos Reales", "RIESGO" to "🟡 De Riesgo")) { (clave, titulo) ->
+            items(listOf("TODOS" to "✨ Todos (${diagnosticos.size})", "REAL" to "🔴 Reales", "RIESGO" to "🟡 Riesgo", "PROMOCION" to "🟢 Promoción")) { (clave, titulo) ->
                 val seleccionado = filtroTipo == clave
                 val bgColor by animateColorAsState(if (seleccionado) TealPrimary else Color.White, label = "")
                 val txtColor = if (seleccionado) Color.White else Color.DarkGray
@@ -296,13 +308,35 @@ fun PantallaExplorar(
             }
         }
 
+        // Carrusel de los 13 Dominios NANDA 2024-2026
+        LazyRow(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(listaDominios) { dom ->
+                val sel = filtroDominio == dom
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (sel) TealDark else Color(0xFFE0F2F1),
+                    modifier = Modifier.clickable { filtroDominio = dom }
+                ) {
+                    Text(
+                        text = if (dom == "TODOS") "📚 13 Dominios" else dom.substringBefore(":"),
+                        color = if (sel) Color.White else TealDark,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+            }
+        }
         // Tarjetas de Diagnóstico
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(filtrados) { diag ->
-                val colorBorde = if (diag.tipo == "REAL") CoralReal else AmberRiesgo
+                val colorBorde = when(diag.tipo) { "REAL" -> CoralReal; "RIESGO" -> AmberRiesgo; else -> TealPrimary }
                 Card(
                     shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
