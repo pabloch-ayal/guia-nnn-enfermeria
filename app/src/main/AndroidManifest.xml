@@ -14,7 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:label="Enfermería NNN Pro"
+        android:icon="@drawable/ic_launcher_enfermeria"
+        android:roundIcon="@drawable/ic_launcher_enfermeria"
+        android:label="Enfermería NNN"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity

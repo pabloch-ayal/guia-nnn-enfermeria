@@ -175,8 +175,15 @@ fun PantallaExplorar(
     diagnosticos: List<DiagnosticoNNN>,
     alSeleccionar: (DiagnosticoNNN) -> Unit
 ) {
+    val context = LocalContext.current
     var busqueda by remember { mutableStateOf("") }
+    var escuchandoBusqueda by remember { mutableStateOf(false) }
     var filtroTipo by remember { mutableStateOf("TODOS") }
+    val permisoMicBusqueda = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { concedido ->
+        if (!concedido) Toast.makeText(context, "Activa el micrófono para buscar por voz", Toast.LENGTH_SHORT).show()
+    }
 
     val filtrados = diagnosticos.filter { diag ->
         val coincideTipo = filtroTipo == "TODOS" || diag.tipo == filtroTipo
@@ -216,8 +223,40 @@ fun PantallaExplorar(
                 OutlinedTextField(
                     value = busqueda,
                     onValueChange = { busqueda = it },
-                    placeholder = { Text("Buscar síntoma, código o etiqueta (ej. fiebre)...") },
+                    placeholder = { Text(if (escuchandoBusqueda) "🎙️ Escuchando síntoma o código..." else "Buscar o dictar síntoma (ej. fiebre)...") },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = TealPrimary) },
+                    trailingIcon = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            if (busqueda.isNotEmpty()) {
+                                IconButton(onClick = { busqueda = "" }) {
+                                    Icon(Icons.Default.Clear, contentDescription = "Limpiar", tint = Color.Gray)
+                                }
+                            }
+                            IconButton(
+                                onClick = {
+                                    permisoMicBusqueda.launch(Manifest.permission.RECORD_AUDIO)
+                                    iniciarReconocimientoVoz(
+                                        context = context,
+                                        alEmpezar = { escuchandoBusqueda = true },
+                                        alTerminar = { texto ->
+                                            escuchandoBusqueda = false
+                                            if (!texto.startsWith("No se escuchó")) {
+                                                busqueda = texto
+                                            } else {
+                                                Toast.makeText(context, texto, Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    )
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (escuchandoBusqueda) Icons.Default.GraphicEq else Icons.Default.Mic,
+                                    contentDescription = "Buscar por voz",
+                                    tint = if (escuchandoBusqueda) CoralReal else TealPrimary
+                                )
+                            }
+                        }
+                    },
                     singleLine = true,
                     shape = RoundedCornerShape(16.dp),
                     colors = OutlinedTextFieldDefaults.colors(
