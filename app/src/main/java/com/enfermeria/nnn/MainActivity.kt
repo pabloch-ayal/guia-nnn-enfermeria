@@ -415,9 +415,10 @@ fun PantallaExplorar(
             }
         }
 
-        // Selector explícito de Taxonomía: NANDA-I / NOC / NIC
+        // Selector explícito de Taxonomía con altura uniforme: NANDA-I / NOC / NIC
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -434,98 +435,20 @@ fun PantallaExplorar(
                     shadowElevation = 2.dp,
                     modifier = Modifier
                         .weight(1f)
+                        .height(42.dp)
                         .clickable {
                             libroActivo = clave
                             filtroNocNicDom = "TODOS"
                         }
                 ) {
-                    Text(
-                        text = etiquetaBtn,
-                        color = if (activo) Color.White else TealDark,
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 11.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 4.dp)
-                    )
-                }
-            }
-        }
-
-        // Respuesta directa NANDA + NOC + NIC cuando hay síntomas o consulta activa
-        if (textoParaEvaluar.isNotBlank()) {
-            val mejorDiag = diagnosticosOrdenados.firstOrNull()
-            Card(
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                shape = RoundedCornerShape(16.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-            ) {
-                Column(modifier = Modifier.padding(14.dp)) {
-                    Text(
-                        "Valoración directa para: \"$textoParaEvaluar\"",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 13.sp,
-                        color = TealDark
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    if (mejorDiag != null) {
-                        val nocRef = mejorDiag.noc.firstOrNull()
-                        val nicRef = mejorDiag.nic.firstOrNull()
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(horizontal = 6.dp)) {
                         Text(
-                            "• NANDA: (${mejorDiag.codigo}) ${mejorDiag.etiqueta} [${mejorDiag.tipo}] — ${mejorDiag.dominio} / ${mejorDiag.clase}.",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF0F172A)
-                        )
-                        Text(
-                            "  Características/factores de referencia: ${mejorDiag.caracteristicas_definitorias.joinToString(", ").ifEmpty { mejorDiag.factores_relacionados.joinToString(", ") }}.",
+                            text = etiquetaBtn,
+                            color = if (activo) Color.White else TealDark,
+                            fontWeight = FontWeight.ExtraBold,
                             fontSize = 11.sp,
-                            color = Color.DarkGray
-                        )
-                        if (nocRef != null) {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                "• NOC: (${nocRef.codigo}) ${nocRef.etiqueta} — ${nocRef.dominio_noc}.",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = TealPrimary
-                            )
-                            Text(
-                                "  Indicadores: ${nocRef.indicadores.joinToString(" | ")}.",
-                                fontSize = 11.sp,
-                                color = Color.DarkGray
-                            )
-                        }
-                        if (nicRef != null) {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                "• NIC: (${nicRef.codigo}) ${nicRef.etiqueta} — ${nicRef.dominio_nic}.",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = PurpleQuiz
-                            )
-                            Text(
-                                "  Actividades: ${nicRef.actividades.joinToString(" ")}",
-                                fontSize = 11.sp,
-                                color = Color.DarkGray
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Button(
-                            onClick = { alSeleccionar(mejorDiag, 0) },
-                            colors = ButtonDefaults.buttonColors(containerColor = TealPrimary),
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text("Abrir enlace completo y redactar PAE", fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        }
-                    } else {
-                        Text(
-                            "No se encontró coincidencia verificada en los registros cargados para esos términos. Intenta describir signos o respuestas observables registradas (por ejemplo: dolor agudo, fiebre, disnea, diarrea, estreñimiento, edema o ansiedad).",
-                            fontSize = 12.sp,
-                            color = Color.DarkGray
+                            maxLines = 1,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -652,9 +575,89 @@ fun PantallaExplorar(
             }
 
             LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 28.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
+                if (textoParaEvaluar.isNotBlank()) {
+                    item(key = "valoracion_directa") {
+                        val mejorDiag = diagnosticosOrdenados.firstOrNull()
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            shape = RoundedCornerShape(16.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(modifier = Modifier.padding(14.dp)) {
+                                Text(
+                                    "Valoración directa para: \"$textoParaEvaluar\"",
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 13.sp,
+                                    color = TealDark
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                if (mejorDiag != null) {
+                                    val nocRef = mejorDiag.noc.firstOrNull()
+                                    val nicRef = mejorDiag.nic.firstOrNull()
+                                    Text(
+                                        "• NANDA: (${mejorDiag.codigo}) ${mejorDiag.etiqueta} [${mejorDiag.tipo}] — ${mejorDiag.dominio} / ${mejorDiag.clase}.",
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF0F172A)
+                                    )
+                                    Text(
+                                        "  Características/factores de referencia: ${mejorDiag.caracteristicas_definitorias.joinToString(", ").ifEmpty { mejorDiag.factores_relacionados.joinToString(", ") }}.",
+                                        fontSize = 11.sp,
+                                        color = Color.DarkGray
+                                    )
+                                    if (nocRef != null) {
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            "• NOC: (${nocRef.codigo}) ${nocRef.etiqueta} — ${nocRef.dominio_noc}.",
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = TealPrimary
+                                        )
+                                        Text(
+                                            "  Indicadores: ${nocRef.indicadores.joinToString(" | ")}.",
+                                            fontSize = 11.sp,
+                                            color = Color.DarkGray
+                                        )
+                                    }
+                                    if (nicRef != null) {
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            "• NIC: (${nicRef.codigo}) ${nicRef.etiqueta} — ${nicRef.dominio_nic}.",
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = PurpleQuiz
+                                        )
+                                        Text(
+                                            "  Actividades: ${nicRef.actividades.joinToString(" ")}",
+                                            fontSize = 11.sp,
+                                            color = Color.DarkGray
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Button(
+                                        onClick = { alSeleccionar(mejorDiag, 0) },
+                                        colors = ButtonDefaults.buttonColors(containerColor = TealPrimary),
+                                        shape = RoundedCornerShape(10.dp),
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text("Abrir enlace completo y redactar PAE", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                } else {
+                                    Text(
+                                        "No se encontró coincidencia verificada en los registros cargados para esos términos. Intenta describir signos o respuestas observables registradas (por ejemplo: dolor agudo, fiebre, disnea, diarrea, estreñimiento, edema o ansiedad).",
+                                        fontSize = 12.sp,
+                                        color = Color.DarkGray
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
                 items(filtradosNanda) { diag ->
                     val colorBorde = when (diag.tipo) {
                         "REAL" -> CoralReal
@@ -1233,6 +1236,9 @@ fun iniciarReconocimientoVoz(
     val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
         putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-PE")
+        putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000L)
+        putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 2500L)
+        putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 3500L)
     }
     recognizer.setRecognitionListener(object : RecognitionListener {
         override fun onReadyForSpeech(params: Bundle?) { alEmpezar() }
