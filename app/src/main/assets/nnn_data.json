@@ -162,52 +162,62 @@
     {
       "sigla": "PAE",
       "termino": "Proceso de Atención de Enfermería",
-      "definicion": "Método sistemático y científico de 5 etapas (Valoración, Diagnóstico, Planificación, Ejecución y Evaluación) para brindar cuidados humanísticos y eficientes."
+      "definicion": "Método sistemático de cinco etapas: Valoración, Diagnóstico, Planificación, Ejecución y Evaluación."
     },
     {
       "sigla": "NANDA-I",
       "termino": "NANDA International (2024-2026)",
-      "definicion": "Taxonomía estandarizada de diagnósticos enfermeros estructurada en 13 dominios y 48 clases que clasifica respuestas humanas."
+      "definicion": "Clasificación de diagnósticos enfermeros organizada en 13 dominios y 48 clases que agrupa respuestas humanas."
     },
     {
       "sigla": "NOC",
       "termino": "Clasificación de Resultados de Enfermería",
-      "definicion": "Taxonomía estructurada en 7 dominios y 36 clases que define estados, conductas o percepciones del paciente medibles en escala Likert de 1 a 5."
+      "definicion": "Clasificación organizada en 7 dominios y 36 clases que describe estados, conductas o percepciones medibles en escala Likert de 1 a 5."
     },
     {
       "sigla": "NIC",
       "termino": "Clasificación de Intervenciones de Enfermería",
-      "definicion": "Taxonomía estructurada en 7 dominios y 30 clases que normaliza los tratamientos y actividades que realiza el profesional de enfermería."
+      "definicion": "Clasificación organizada en 7 dominios y 30 clases que agrupa intervenciones y actividades de enfermería."
     },
     {
-      "sigla": "Formato PES",
-      "termino": "Problema + Etiología + Signos/Síntomas",
-      "definicion": "Estructura de redacción del diagnóstico real: [Etiqueta NANDA] + relacionado con (r/c) [Factor relacionado] + manifestado por (m/p) [Características definitorias]."
+      "sigla": "Diagnóstico Real",
+      "termino": "Diagnóstico enfocado en el problema",
+      "definicion": "Describe una respuesta humana no deseada presente en el momento de la valoración, respaldada por características definitorias y factores relacionados."
+    },
+    {
+      "sigla": "Diagnóstico de Riesgo",
+      "termino": "Susceptibilidad a desarrollar una respuesta",
+      "definicion": "Describe la vulnerabilidad de una persona, familia o grupo a desarrollar una respuesta humana no deseada si no se actúa, respaldada por factores de riesgo."
+    },
+    {
+      "sigla": "Diagnóstico de Promoción",
+      "termino": "Disposición para mejorar el bienestar",
+      "definicion": "Juicio clínico sobre la motivación o deseo de aumentar el bienestar y actualizar el potencial de salud, expresado mediante características definitorias."
     },
     {
       "sigla": "r/c",
-      "termino": "Relacionado con (Factor relacionado)",
-      "definicion": "Etiología, causa o factor contribuyente que precede o se asocia con el diagnóstico enfermero."
+      "termino": "Relacionado con",
+      "definicion": "Conector que enlaza el diagnóstico enfermero con los factores relacionados o factores de riesgo identificados en la valoración."
     },
     {
       "sigla": "m/p",
-      "termino": "Manifestado por (Característica definitoria)",
-      "definicion": "Signos objetivos y síntomas subjetivos observables que validan la presencia de un diagnóstico enfocado en el problema (NO se usa en diagnósticos de riesgo)."
+      "termino": "Manifestado por",
+      "definicion": "Conector que enlaza el diagnóstico enfocado en el problema con las características definitorias observadas o referidas."
+    },
+    {
+      "sigla": "Indicador NOC",
+      "termino": "Criterio observable o medible del resultado",
+      "definicion": "Estado, conducta o percepción concreto de un paciente, familia o comunidad que sirve para medir un resultado NOC en escala Likert 1-5."
+    },
+    {
+      "sigla": "Actividad NIC",
+      "termino": "Acción concreta de enfermería",
+      "definicion": "Conducta o acción específica que realiza el profesional de enfermería para llevar a cabo una intervención NIC."
     },
     {
       "sigla": "Escala Likert NOC",
-      "termino": "Escala de medición del 1 al 5",
-      "definicion": "1 = Gravemente comprometido, 2 = Sustancialmente comprometido, 3 = Moderadamente comprometido, 4 = Levemente comprometido, 5 = No comprometido."
-    },
-    {
-      "sigla": "Puntuación Diana",
-      "termino": "Mantener a → Aumentar a",
-      "definicion": "Meta clínica fijada en el NOC que compara el puntaje inicial del paciente con el puntaje esperado tras las intervenciones NIC."
-    },
-    {
-      "sigla": "Dx Enfermero vs Médico",
-      "termino": "Diferencia clínica fundamental",
-      "definicion": "El diagnóstico médico identifica una patología (ej. Neumonía). El diagnóstico enfermero identifica la respuesta humana ante esa condición (ej. Intercambio de gases alterado)."
+      "termino": "Escala de medición de 1 a 5",
+      "definicion": "Escala numérica de 5 puntos utilizada en NOC para evaluar el estado o conducta del paciente y establecer puntuación inicial y diana."
     }
   ],
   "diagnosticos": [
@@ -218,8 +228,8 @@
       "clase": "Clase 2: Gestión de la salud",
       "etiqueta": "Autogestión ineficaz de la salud",
       "definicion": "Manejo insatisfactorio de los síntomas, régimen terapéutico y cambios en el estilo de vida asociados a vivir con una enfermedad crónica.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026. Reemplaza el enfoque antiguo de incumplimiento.",
-      "puntos_clave": "No confundir con el diagnóstico médico (ej. Diabetes). Aquí se evalúa cómo la persona gestiona su tratamiento en casa.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Evalúa la gestión del régimen terapéutico y síntomas en la vida cotidiana.",
       "factores_relacionados": [
         "Complejidad del régimen terapéutico",
         "Alfabetización en salud inadecuada",
@@ -257,17 +267,22 @@
           ]
         }
       ],
-      "caso_voz": "Paciente con hipertensión y diabetes acude con glucosa en 280 mg/dL refiriendo que olvida tomar sus medicamentos y no sigue su plan alimentario.",
-      "palabras_clave_voz": [
-        "autogestión ineficaz de la salud",
-        "tratamiento",
-        "incumplimiento",
-        "medicacion",
+      "caso_voz": "Paciente con hipertensión y diabetes acude con glucosa elevada refiriendo que olvida tomar sus medicamentos y no sigue el plan alimentario indicado.",
+      "claves_principales": [
         "00276",
-        "enseñanza: proceso de enfermedad",
         "autogestion ineficaz",
+        "autogestion ineficaz de la salud",
+        "no toma sus medicamentos",
+        "autogestión ineficaz de la salud",
+        "incumplimiento"
+      ],
+      "claves_secundarias": [
+        "sintomas",
+        "conducta de cumplimiento",
+        "tratamiento",
+        "medicacion",
         "dieta",
-        "conducta de cumplimiento"
+        "enseñanza: proceso de enfermedad"
       ]
     },
     {
@@ -277,10 +292,10 @@
       "clase": "Clase 2: Gestión de la salud",
       "etiqueta": "Disposición para mejorar la autogestión de la salud",
       "definicion": "Patrón de regulación e integración en la vida cotidiana de un régimen terapéutico que puede ser fortalecido.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026 (Diagnóstico de Promoción de la Salud).",
-      "puntos_clave": "Los diagnósticos de promoción de la salud NO llevan factores relacionados negativos; se sustentan en el deseo expreso de mejorar.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Diagnóstico de promoción de la salud centrado en la disposición expresada para mejorar.",
       "factores_relacionados": [
-        "Motivación intrínseca expresada por el paciente"
+        "Motivación expresada por el paciente"
       ],
       "caracteristicas_definitorias": [
         "Expresa deseo de mejorar el manejo de los síntomas",
@@ -311,16 +326,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente recién diagnosticado con asma solicita orientación sobre el uso correcto de su inhalador y prevención de crisis en el hogar.",
-      "palabras_clave_voz": [
-        "autogestion",
-        "conocimiento: proceso de la enfermedad",
+      "caso_voz": "Paciente recién diagnosticado con asma expresa deseo de aprender a usar correctamente su inhalador y prevenir crisis en casa.",
+      "claves_principales": [
         "00293",
-        "disposicion para mejorar",
-        "inhalador",
         "disposición para mejorar la autogestión de la salud",
+        "disposicion para mejorar",
+        "deseo de mejorar",
+        "disposicion para mejorar la autogestion de la salud"
+      ],
+      "claves_secundarias": [
+        "conocimiento: proceso de la enfermedad",
+        "inhalador",
         "facilitar la autorresponsabilidad",
-        "promocion"
+        "autogestion",
+        "prevencion"
       ]
     },
     {
@@ -330,13 +349,13 @@
       "clase": "Clase 2: Gestión de la salud",
       "etiqueta": "Síndrome de fragilidad del anciano",
       "definicion": "Estado dinámico de equilibrio inestable que afecta al adulto mayor con deterioro en uno o más dominios de la salud.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Es un diagnóstico de síndrome: agrupa varias respuestas simultáneas en el adulto mayor vulnerable.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Agrupa múltiples respuestas en el adulto mayor con equilibrio inestable.",
       "factores_relacionados": [
         "Disminución de la fuerza muscular",
         "Sarcopenia",
         "Apoyo social inadecuado",
-        "Enfermedad crónica agotadora"
+        "Enfermedad crónica"
       ],
       "caracteristicas_definitorias": [
         "Fatiga",
@@ -368,15 +387,20 @@
           ]
         }
       ],
-      "caso_voz": "Adulto mayor de 84 años presenta pérdida de peso involuntaria, marcha lenta e inestable, debilidad muscular y fatiga al caminar distancias cortas.",
-      "palabras_clave_voz": [
-        "sindrome de fragilidad",
-        "adulto mayor",
-        "debilidad",
-        "síndrome de fragilidad del anciano",
-        "fragilidad del anciano",
-        "prevención de caídas",
+      "caso_voz": "Adulto mayor de 84 años presenta pérdida de peso, marcha inestable, debilidad muscular y fatiga al caminar cortas distancias.",
+      "claves_principales": [
         "00257",
+        "sindrome de fragilidad del anciano",
+        "fragilidad",
+        "fragilidad del anciano",
+        "síndrome de fragilidad del anciano"
+      ],
+      "claves_secundarias": [
+        "marcha inestable",
+        "adulto mayor",
+        "debilidad muscular",
+        "prevención de caídas",
+        "fatiga",
         "movilidad"
       ]
     },
@@ -387,8 +411,8 @@
       "clase": "Clase 1: Ingestión",
       "etiqueta": "Ingesta nutricional inadecuada",
       "definicion": "Consumo de nutrientes insuficiente para satisfacer las necesidades metabólicas.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Desequilibrio nutricional: inferior a las necesidades corporales).",
-      "puntos_clave": "Verificar peso actual, talla, IMC, albúmina y porcentaje de ingesta en cada turno.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Valora el aporte de nutrientes frente a las necesidades metabólicas del paciente.",
       "factores_relacionados": [
         "Ingesta alimentaria insuficiente",
         "Dificultad para deglutir",
@@ -427,16 +451,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente hospitalizado presenta pérdida de peso del 15% en un mes, mucosas pálidas, debilidad muscular e ingiere menos de la mitad de sus comidas.",
-      "palabras_clave_voz": [
-        "desnutricion",
+      "caso_voz": "Paciente hospitalizado presenta pérdida de peso involuntaria, mucosas pálidas, debilidad muscular e ingesta alimentaria insuficiente.",
+      "claves_principales": [
         "bajo peso",
-        "palidez",
         "00002",
-        "ingesta nutricional inadecuada",
-        "anorexia",
-        "estado nutricional",
-        "manejo de la nutrición"
+        "nutrientes insuficiente",
+        "ingesta nutricional inadecuada"
+      ],
+      "claves_secundarias": [
+        "tono muscular",
+        "mucosas palidas",
+        "manejo de la nutrición",
+        "perdida de peso",
+        "estado nutricional"
       ]
     },
     {
@@ -446,11 +473,11 @@
       "clase": "Clase 1: Ingestión",
       "etiqueta": "Obesidad",
       "definicion": "Condición en la que el individuo acumula grasa excesiva o de manera anormal para su edad y sexo, superando el sobrepeso.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026 (reemplazó al retirado código 00001).",
-      "puntos_clave": "El criterio diagnóstico objetivo principal en adultos es un IMC mayor a 30 kg/m².",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se evalúa mediante el Índice de Masa Corporal y parámetros antropométricos oficiales.",
       "factores_relacionados": [
         "Gasto energético inferior al consumo energético",
-        "Comportamiento sedentario > 2 horas/día",
+        "Comportamiento sedentario",
         "Consumo excesivo de bebidas azucaradas",
         "Tamaño de las porciones mayor al recomendado"
       ],
@@ -483,15 +510,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente adulto acude a consulta con un Índice de Masa Corporal de 33.5 kg/m², sedentarismo laboral y consumo elevado de azúcares.",
-      "palabras_clave_voz": [
-        "conducta de pérdida de peso",
-        "obesidad",
-        "imc alto",
-        "sobrepeso",
+      "caso_voz": "Paciente adulto presenta Índice de Masa Corporal mayor a 30 kg/m², sedentarismo y consumo elevado de alimentos hipercalóricos.",
+      "claves_principales": [
         "grasa excesiva",
+        "obesidad",
         "00232",
-        "ayuda para disminuir el peso"
+        "imc mayor a 30"
+      ],
+      "claves_secundarias": [
+        "ayuda para disminuir el peso",
+        "conducta de pérdida de peso",
+        "peso corporal",
+        "sedentarismo",
+        "porciones"
       ]
     },
     {
@@ -501,8 +532,8 @@
       "clase": "Clase 1: Ingestión",
       "etiqueta": "Deterioro de la deglución",
       "definicion": "Funcionamiento anormal del mecanismo de la deglución asociado con déficit de la estructura o función oral, faríngea o esofágica.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Prioridad de seguridad: prevenir la broncoaspiración manteniendo posición Fowler a 90° al alimentar.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Observa tos o atragantamiento al tragar líquidos o sólidos y protege la vía aérea durante la ingesta.",
       "factores_relacionados": [
         "Deterioro neuromuscular",
         "Lesión cerebral",
@@ -541,16 +572,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente con secuela neurológica presenta tos húmeda y atragantamiento al ingerir líquidos claros y alimentos sólidos.",
-      "palabras_clave_voz": [
-        "tos al tragar",
-        "disfagia",
-        "terapia de deglución",
-        "atragantamiento",
+      "caso_voz": "Paciente con antecedente neurológico presenta tos y atragantamiento al intentar tragar líquidos y alimentos.",
+      "claves_principales": [
         "deterioro de la deglucion",
-        "estado de deglución",
+        "tos al tragar",
+        "deglucion",
+        "atragantamiento",
         "00103",
         "deterioro de la deglución"
+      ],
+      "claves_secundarias": [
+        "babeo",
+        "masticacion",
+        "estado de deglución",
+        "terapia de deglución",
+        "alimentos"
       ]
     },
     {
@@ -560,8 +596,8 @@
       "clase": "Clase 4: Metabolismo",
       "etiqueta": "Riesgo de nivel de glucemia inestable",
       "definicion": "Susceptibilidad a la variación de los niveles séricos de glucosa fuera de los rangos normales, que puede comprometer la salud.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026 (Diagnóstico de Riesgo).",
-      "puntos_clave": "Al ser diagnóstico de RIESGO, no tiene características definitorias (m/p); la Diabetes Mellitus se registra como condición asociada.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026 (Diagnóstico de riesgo).",
+      "puntos_clave": "Evalúa factores de riesgo de variación glucémica sin características definitorias presentes.",
       "factores_relacionados": [
         "Autogestión inadecuada de la diabetes",
         "Adherencia inadecuada al régimen terapéutico",
@@ -594,17 +630,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente diabético hospitalizado por infección recibe corticoides y presenta fluctuaciones de glucosa capilar entre 65 y 260 mg/dL.",
-      "palabras_clave_voz": [
-        "00179",
-        "diabetes",
-        "glucemia inestable",
-        "nivel de glucemia",
-        "hipoglucemia",
-        "manejo de la hiperglucemia",
+      "caso_voz": "Paciente con diabetes presenta variaciones frecuentes de glucosa en sangre y requiere vigilancia de glucemia capilar.",
+      "claves_principales": [
+        "glucosa",
         "riesgo de nivel de glucemia inestable",
+        "00179",
+        "glucemia inestable"
+      ],
+      "claves_secundarias": [
+        "manejo de la hiperglucemia",
+        "diabetes",
         "hiperglucemia",
-        "glucosa"
+        "hipoglucemia",
+        "nivel de glucemia"
       ]
     },
     {
@@ -614,8 +652,8 @@
       "clase": "Clase 5: Hidratación",
       "etiqueta": "Volumen de líquidos inadecuado",
       "definicion": "Disminución del líquido intravascular, intersticial y/o intracelular.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Déficit de volumen de líquidos).",
-      "puntos_clave": "Controlar balance hídrico estricto (ingresos vs. egresos), diuresis horaria y signo del pliegue.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Se identifica por disminución del volumen hídrico con mucosas secas, oliguria o cambios hemodinámicos.",
       "factores_relacionados": [
         "Pérdida activa de volumen de líquidos",
         "Ingesta insuficiente de líquidos",
@@ -656,17 +694,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente ingresa tras 2 días de vómitos y diarrea aguda; presenta mucosas secas, signo del pliegue positivo, PA 85/50 mmHg y oliguria.",
-      "palabras_clave_voz": [
-        "volumen de líquidos inadecuado",
-        "hipovolemia",
-        "deficit de volumen de liquidos",
-        "oliguria",
-        "deshidratacion",
-        "manejo de líquidos",
-        "volumen de liquidos inadecuado",
+      "caso_voz": "Paciente tras vómitos y diarrea presenta mucosas secas, sed intensa, hipotensión arterial y disminución del volumen urinario.",
+      "claves_principales": [
         "00027",
-        "equilibrio hídrico"
+        "deshidratacion",
+        "volumen de liquidos inadecuado",
+        "volumen de líquidos inadecuado",
+        "liquidos inadecuado"
+      ],
+      "claves_secundarias": [
+        "manejo de líquidos",
+        "turgencia",
+        "oliguria",
+        "equilibrio hídrico",
+        "mucosas secas",
+        "sed intensa"
       ]
     },
     {
@@ -676,8 +718,8 @@
       "clase": "Clase 5: Hidratación",
       "etiqueta": "Exceso de volumen de líquidos",
       "definicion": "Retención excedente de líquido isotónico en los compartimentos corporales.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Evaluar grado de edema (signo de la fóvea), peso diario en ayunas y auscultar bases pulmonares.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Refleja retención de líquidos isotónicos con signos como edema, aumento rápido de peso o disnea.",
       "factores_relacionados": [
         "Ingesta excesiva de líquidos o sodio",
         "Compromiso de los mecanismos reguladores"
@@ -715,16 +757,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente con enfermedad renal crónica presenta edema en miembros inferiores con fóvea ++, aumento de 3 kg en 48 horas e hipertensión.",
-      "palabras_clave_voz": [
-        "retencion de liquidos",
-        "fovea",
+      "caso_voz": "Paciente presenta edema en miembros inferiores, aumento brusco de peso y disnea asociada a sobrecarga de líquidos.",
+      "claves_principales": [
+        "sobrecarga de liquidos",
         "00026",
-        "exceso de volumen de liquidos",
-        "monitorización de líquidos",
-        "severidad de la sobrecarga de líquidos",
         "edema",
+        "exceso de volumen de liquidos",
         "exceso de volumen de líquidos"
+      ],
+      "claves_secundarias": [
+        "anasarca",
+        "severidad de la sobrecarga de líquidos",
+        "monitorización de líquidos",
+        "aumento de peso",
+        "ingurgitacion yugular"
       ]
     },
     {
@@ -734,8 +780,8 @@
       "clase": "Clase 1: Función urinaria",
       "etiqueta": "Eliminación urinaria alterada",
       "definicion": "Disfunción en la eliminación urinaria.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Deterioro de la eliminación urinaria).",
-      "puntos_clave": "Diferenciar si el problema es irritativo (disuria/polaquiuria) o obstructivo (globo vesical/retención).",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Abarca alteraciones como disuria, polaquiuria, urgencia urinaria o retención urinaria.",
       "factores_relacionados": [
         "Infección del tracto urinario",
         "Obstrucción anatómica",
@@ -775,17 +821,22 @@
           ]
         }
       ],
-      "caso_voz": "Paciente mujer refiere intenso ardor al orinar (disuria), micciones frecuentes de escasa cantidad y orina turbia.",
-      "palabras_clave_voz": [
-        "eliminación urinaria",
-        "00016",
-        "manejo de la eliminación urinaria",
-        "urinaria",
+      "caso_voz": "Paciente refiere ardor al orinar, micciones frecuentes de poca cantidad y urgencia urinaria.",
+      "claves_principales": [
         "disuria",
-        "eliminacion urinaria",
         "polaquiuria",
-        "orinar",
-        "eliminación urinaria alterada"
+        "eliminación urinaria alterada",
+        "eliminacion urinaria",
+        "eliminacion urinaria alterada",
+        "00016"
+      ],
+      "claves_secundarias": [
+        "eliminación urinaria",
+        "urgencia urinaria",
+        "nicturia",
+        "retencion urinaria",
+        "manejo de la eliminación urinaria",
+        "orina"
       ]
     },
     {
@@ -795,8 +846,8 @@
       "clase": "Clase 2: Función gastrointestinal",
       "etiqueta": "Estreñimiento",
       "definicion": "Disminución de la frecuencia normal de defecación, acompañada de eliminación dificultosa o incompleta de heces excesivamente duras y secas.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Valorar escala de Bristol, auscultar ruidos hidroaéreos antes de palpar abdomen y registrar última deposición.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se caracteriza por deposiciones infrecuentes, heces duras y secas, esfuerzo o distensión abdominal.",
       "factores_relacionados": [
         "Ingesta insuficiente de fibra y líquidos",
         "Actividad física diaria inferior a la recomendada",
@@ -806,7 +857,7 @@
         "Disminución en la frecuencia de las deposiciones",
         "Heces duras, formadas y secas",
         "Esfuerzo excesivo al defecar",
-        "Distensión y dolor abdominal",
+        "Distensión abdominal",
         "Ruidos intestinales hipoactivos"
       ],
       "noc": [
@@ -836,17 +887,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente en reposo prolongado refiere 5 días sin realizar deposiciones, abdomen distendido, dolor a la palpación y ruidos hidroaéreos disminuidos.",
-      "palabras_clave_voz": [
-        "manejo del estreñimiento/impactación",
+      "caso_voz": "Paciente refiere disminución de la frecuencia de defecación, heces duras y secas, esfuerzo al evacuar y distensión abdominal.",
+      "claves_principales": [
+        "frecuencia de defecacion",
         "heces duras",
-        "estreñimiento",
-        "distension abdominal",
-        "constipacion",
         "estrenimiento",
         "00011",
-        "defecacion",
-        "eliminación intestinal"
+        "estreñimiento"
+      ],
+      "claves_secundarias": [
+        "manejo del estreñimiento/impactación",
+        "esfuerzo excesivo",
+        "eliminación intestinal",
+        "distension abdominal",
+        "deposiciones"
       ]
     },
     {
@@ -856,8 +910,8 @@
       "clase": "Clase 2: Función gastrointestinal",
       "etiqueta": "Diarrea",
       "definicion": "Eliminación de heces líquidas, no formadas, en más de tres episodios diarios.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Vigilar riesgo secundario de deshidratación y proteger la integridad de la piel perianal.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se define por deposiciones líquidas no formadas en más de tres episodios en 24 horas.",
       "factores_relacionados": [
         "Proceso infeccioso gastrointestinal",
         "Contaminación de alimentos o agua",
@@ -897,15 +951,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente presenta 6 cámaras de deposiciones líquidas en 12 horas, acompañadas de cólicos abdominales y ruidos hidroaéreos aumentados.",
-      "palabras_clave_voz": [
-        "deposiciones liquidas",
-        "colicos",
-        "diarrea",
+      "caso_voz": "Paciente presenta deposiciones líquidas no formadas en más de tres ocasiones al día, urgencia intestinal y cólicos abdominales.",
+      "claves_principales": [
         "heces liquidas",
+        "diarrea",
+        "00013",
+        "deposiciones liquidas"
+      ],
+      "claves_secundarias": [
         "manejo de la diarrea",
+        "colicos",
+        "ruidos intestinales",
         "eliminación intestinal",
-        "00013"
+        "urgencia intestinal"
       ]
     },
     {
@@ -915,8 +973,8 @@
       "clase": "Clase 4: Función respiratoria",
       "etiqueta": "Intercambio de gases alterado",
       "definicion": "Exceso o déficit en la oxigenación y/o eliminación de dióxido de carbono en la membrana alveolocapilar.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Deterioro del intercambio de gases).",
-      "puntos_clave": "No confundir con Patrón respiratorio ineficaz: aquí el fallo está en la oxigenación alveolar (SpO2 baja, cianosis, AGA alterado).",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Se centra en la oxigenación y eliminación de dióxido de carbono a nivel alveolocapilar.",
       "factores_relacionados": [
         "Desequilibrio en la ventilación-perfusión",
         "Cambios en la membrana alveolocapilar"
@@ -956,17 +1014,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente con compromiso pulmonar presenta saturación de oxígeno de 86% al aire ambiente, cianosis distal e inquietud.",
-      "palabras_clave_voz": [
-        "oxigeno",
-        "intercambio de gases alterado",
-        "oxigenoterapia",
-        "00030",
-        "hipoxemia",
-        "saturacion baja",
+      "caso_voz": "Paciente presenta saturación de oxígeno disminuida, cianosis, inquietud y alteración del intercambio gaseoso alveolar.",
+      "claves_principales": [
         "cianosis",
+        "hipercapnia",
         "intercambio de gases",
-        "estado respiratorio: intercambio gaseoso"
+        "hipoxemia",
+        "00030",
+        "intercambio de gases alterado"
+      ],
+      "claves_secundarias": [
+        "oxigeno",
+        "estado respiratorio: intercambio gaseoso",
+        "saturacion",
+        "oxigenoterapia",
+        "aleteo nasal"
       ]
     },
     {
@@ -976,8 +1038,8 @@
       "clase": "Clase 1: Sueño/Reposo",
       "etiqueta": "Insomnio",
       "definicion": "Incapacidad para iniciar o mantener el sueño que perjudica el funcionamiento diurno.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Agrupar cuidados nocturnos de enfermería para respetar ciclos de sueño de al menos 90 minutos.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Implica dificultad para iniciar o mantener el sueño con repercusión diurna.",
       "factores_relacionados": [
         "Factores estresantes",
         "Ruido e iluminación ambiental",
@@ -1017,15 +1079,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente hospitalizado refiere dormir solo 2 horas por noche debido al ruido ambiental y preocupación, mostrando fatiga diurna.",
-      "palabras_clave_voz": [
-        "descanso",
-        "no puede dormir",
-        "sueno",
-        "mejorar el sueño",
+      "caso_voz": "Paciente refiere dificultad para conciliar el sueño, despertares frecuentes por el entorno y cansancio durante el día.",
+      "claves_principales": [
+        "conciliar el sueno",
         "00095",
         "insomnio",
-        "sueño"
+        "sueno interrumpido"
+      ],
+      "claves_secundarias": [
+        "somnolencia diurna",
+        "mejorar el sueño",
+        "sueño",
+        "descanso",
+        "sueno"
       ]
     },
     {
@@ -1035,8 +1101,8 @@
       "clase": "Clase 2: Actividad/Ejercicio",
       "etiqueta": "Movilidad física alterada",
       "definicion": "Limitación del movimiento independiente e intencionado del cuerpo o de una o más extremidades.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Deterioro de la movilidad física).",
-      "puntos_clave": "Si el paciente está inmovilizado, vigilar simultáneamente el riesgo de lesión por presión.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Evalúa la limitación del movimiento independiente del cuerpo o de una o más extremidades.",
       "factores_relacionados": [
         "Disminución de la fuerza o masa muscular",
         "Dolor",
@@ -1078,17 +1144,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente postoperado de cadera presenta limitación para movilizar el miembro inferior derecho y requiere asistencia para girarse en cama.",
-      "palabras_clave_voz": [
-        "00085",
-        "inmovilidad",
-        "no puede caminar",
-        "movilidad",
-        "movilidad fisica",
+      "caso_voz": "Paciente presenta limitación para movilizar una extremidad, dificultad para girarse en cama y alteración de la marcha.",
+      "claves_principales": [
+        "amplitud de movimientos",
+        "alteracion de la marcha",
         "movilidad física alterada",
+        "movilidad fisica alterada",
+        "00085",
+        "movilidad fisica"
+      ],
+      "claves_secundarias": [
         "terapia de ejercicios: ambulación",
-        "marcha",
-        "postrado"
+        "movilidad",
+        "girarse en la cama",
+        "fuerza muscular",
+        "inestabilidad postural"
       ]
     },
     {
@@ -1098,8 +1168,8 @@
       "clase": "Clase 4: Respuestas cardiovasculares/pulmonares",
       "etiqueta": "Patrón respiratorio ineficaz",
       "definicion": "La inspiración y/o espiración no proporciona una ventilación adecuada.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Aquí el signo clave es la mecánica ventilatoria alterada (frecuencia respiratoria elevada, tirajes, disnea).",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se centra en la ventilación inspiratoria/espiratoria: disnea, taquipnea, bradipnea o uso de músculos accesorios.",
       "factores_relacionados": [
         "Fatiga de los músculos respiratorios",
         "Dolor torácico o abdominal",
@@ -1140,17 +1210,22 @@
           ]
         }
       ],
-      "caso_voz": "Paciente ingresa con frecuencia respiratoria de 32 por minuto, tiraje intercostal marcado y disnea a pequeños esfuerzos.",
-      "palabras_clave_voz": [
-        "patrón respiratorio ineficaz",
-        "estado respiratorio: ventilación",
+      "caso_voz": "Paciente presenta disnea, taquipnea y uso de músculos accesorios para respirar.",
+      "claves_principales": [
         "disnea",
-        "tiraje",
-        "00032",
-        "monitorización respiratoria",
-        "falta de aire",
+        "patrón respiratorio ineficaz",
+        "bradipnea",
+        "taquipnea",
+        "patron respiratorio",
         "patron respiratorio ineficaz",
-        "taquipnea"
+        "00032"
+      ],
+      "claves_secundarias": [
+        "frecuencia respiratoria",
+        "musculos accesorios",
+        "estado respiratorio: ventilación",
+        "monitorización respiratoria",
+        "ortopnea"
       ]
     },
     {
@@ -1160,8 +1235,8 @@
       "clase": "Clase 4: Respuestas cardiovasculares/pulmonares",
       "etiqueta": "Gasto cardíaco disminuido",
       "definicion": "La cantidad de sangre bombeada por el corazón es inadecuada para satisfacer las demandas metabólicas del cuerpo.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Emergencia hemodinámica: vigilar presión arterial, llenado capilar, estado de conciencia y diuresis horaria.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Refleja bombeo cardíaco insuficiente para las demandas metabólicas, con hipotensión, pulsos débiles o llenado capilar lento.",
       "factores_relacionados": [
         "Alteración de la frecuencia o el ritmo cardíaco",
         "Alteración de la precarga, poscarga o contractilidad miocárdica"
@@ -1202,17 +1277,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente presenta presión arterial de 80/45 mmHg, pulsos periféricos débiles, piel fría, llenado capilar de 4 segundos y oliguria.",
-      "palabras_clave_voz": [
+      "caso_voz": "Paciente presenta hipotensión arterial, pulsos periféricos débiles, llenado capilar prolongado y piel fría.",
+      "claves_principales": [
+        "gasto cardiaco disminuido",
+        "gasto cardiaco",
+        "00029",
         "gasto cardíaco disminuido",
         "llenado capilar",
-        "gasto cardiaco disminuido",
-        "pulsos debiles",
-        "cuidados cardíacos",
+        "pulsos perifericos debiles"
+      ],
+      "claves_secundarias": [
+        "piel fria",
         "efectividad de la bomba cardíaca",
-        "corazon",
-        "hipotension",
-        "00029"
+        "bomba cardiaca",
+        "cuidados cardíacos",
+        "hipotension"
       ]
     },
     {
@@ -1222,8 +1301,8 @@
       "clase": "Clase 5: Autocuidado",
       "etiqueta": "Capacidad de baño y/o higiene disminuida",
       "definicion": "Deterioro de la habilidad para realizar o completar por sí mismo las actividades de baño e higiene personal.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Déficit de autocuidado: baño).",
-      "puntos_clave": "Fomentar siempre la autonomía parcial: que el paciente realice lo que pueda por sí mismo.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Valora la limitación para ejecutar por sí mismo las acciones de baño e higiene corporal.",
       "factores_relacionados": [
         "Debilidad y cansancio severo",
         "Dolor",
@@ -1261,17 +1340,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente con hemiparesia izquierda no logra movilizarse al baño ni realizar su aseo diario sin ayuda de enfermería.",
-      "palabras_clave_voz": [
-        "aseo",
-        "ayuda con los autocuidados: baño/higiene",
-        "bano",
-        "deficit de autocuidado",
-        "higiene",
-        "autocuidados: baño",
+      "caso_voz": "Paciente presenta dificultad para lavar o secar su cuerpo por sí mismo y requiere asistencia para la higiene.",
+      "claves_principales": [
+        "lavar el cuerpo",
+        "higiene disminuida",
+        "secar el cuerpo",
+        "capacidad de bano",
         "00108",
-        "capacidad de baño y/o higiene disminuida",
-        "capacidad de bano"
+        "capacidad de baño y/o higiene disminuida"
+      ],
+      "claves_secundarias": [
+        "higiene",
+        "bano",
+        "autocuidado",
+        "ayuda con los autocuidados: baño/higiene",
+        "autocuidados: baño"
       ]
     },
     {
@@ -1281,8 +1364,8 @@
       "clase": "Clase 4: Cognición",
       "etiqueta": "Confusión aguda",
       "definicion": "Inicio brusco de alteraciones reversibles de la conciencia, atención, conocimiento y percepción que se desarrollan en un corto período de tiempo.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Siempre buscar causas reversibles en el adulto mayor hospitalizado: hipoxia, retención urinaria, fecaloma o infección.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se distingue por su inicio brusco, curso fluctuante y potencial reversibilidad.",
       "factores_relacionados": [
         "Deshidratación",
         "Alteración del ciclo sueño-vigilia",
@@ -1322,16 +1405,21 @@
           ]
         }
       ],
-      "caso_voz": "Adulto mayor hospitalizado se torna repentinamente desorientado en la noche, intenta retirarse las vías y afirma estar en su casa.",
-      "palabras_clave_voz": [
-        "orientación de la realidad",
-        "orientación cognitiva",
+      "caso_voz": "Paciente presenta inicio brusco de desorientación en tiempo y espacio, fluctuación de la atención e inquietud.",
+      "claves_principales": [
+        "inicio brusco",
         "00128",
+        "alucinaciones",
         "confusión aguda",
-        "delirium",
-        "agitacion",
         "confusion aguda",
         "desorientacion"
+      ],
+      "claves_secundarias": [
+        "orientación de la realidad",
+        "conciencia",
+        "orientación cognitiva",
+        "agitacion",
+        "atencion"
       ]
     },
     {
@@ -1341,8 +1429,8 @@
       "clase": "Clase 4: Cognición",
       "etiqueta": "Conocimiento de salud inadecuado",
       "definicion": "Carencia o deficiencia de información cognitiva relacionada con un tema específico de salud.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Conocimientos deficientes).",
-      "puntos_clave": "Evaluar la comprensión pidiendo al paciente o familiar que demuestre o explique con sus palabras lo aprendido.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Se evidencia mediante declaraciones inexactas o seguimiento inexacto de instrucciones sobre su salud.",
       "factores_relacionados": [
         "Información insuficiente o errónea",
         "Falta de exposición previa al procedimiento o tratamiento",
@@ -1379,15 +1467,19 @@
           ]
         }
       ],
-      "caso_voz": "Madre primeriza al alta hospitalaria expresa no saber cómo realizar el cuidado del cordón umbilical ni reconocer signos de alarma.",
-      "palabras_clave_voz": [
-        "falta de informacion",
-        "conocimiento: régimen terapéutico",
+      "caso_voz": "Paciente o familiar expresa dudas, realiza declaraciones inexactas sobre el cuidado y no sabe cómo aplicar las indicaciones.",
+      "claves_principales": [
+        "declaraciones inexactas",
         "00126",
-        "enseñanza: procedimiento/tratamiento",
-        "conocimientos deficientes",
         "conocimiento de salud inadecuado",
-        "ensenanza"
+        "seguimiento inexacto"
+      ],
+      "claves_secundarias": [
+        "procedimiento",
+        "cuidado",
+        "enseñanza: procedimiento/tratamiento",
+        "conocimiento: régimen terapéutico",
+        "instrucciones"
       ]
     },
     {
@@ -1397,8 +1489,8 @@
       "clase": "Clase 2: Autoestima",
       "etiqueta": "Baja autoestima situacional",
       "definicion": "Cambio de una percepción positiva a una percepción negativa del valor, la aceptación o la competencia propia en respuesta a una situación actual.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Diferenciar de Baja autoestima crónica: aquí la caída de autoestima es desencadenada por un evento reciente (cirugía, ostomía, pérdida).",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Aparece como respuesta a una situación actual específica que altera la autopercepción.",
       "factores_relacionados": [
         "Alteración de la imagen corporal",
         "Pérdida de funciones corporales o independencia",
@@ -1436,16 +1528,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente postoperado de colostomía evita mirar su abdomen durante la curación y expresa entre lágrimas sentirse inútil.",
-      "palabras_clave_voz": [
-        "autoestima situacional",
-        "potenciación de la autoestima",
-        "ostomia",
+      "caso_voz": "Paciente tras un cambio corporal o pérdida funcional expresa verbalizaciones autonegativas, vergüenza o sentimiento de inutilidad.",
+      "claves_principales": [
+        "verbalizaciones autonegativas",
         "inutilidad",
-        "autoestima",
         "baja autoestima situacional",
-        "00120",
-        "baja autoestima"
+        "autoestima situacional",
+        "00120"
+      ],
+      "claves_secundarias": [
+        "autoestima",
+        "potenciación de la autoestima",
+        "imagen corporal",
+        "verguenza"
       ]
     },
     {
@@ -1455,8 +1550,8 @@
       "clase": "Clase 1: Roles de cuidador",
       "etiqueta": "Carga excesiva de cuidados",
       "definicion": "Dificultad multidimensional experimentada por la persona que brinda cuidados a un familiar o allegado dependiente.",
-      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026 (antes Cansancio del rol de cuidador).",
-      "puntos_clave": "El sujeto de atención aquí es el cuidador familiar, no el paciente encamado.",
+      "nota_edicion": "Etiqueta actualizada en NANDA-I 2024-2026.",
+      "puntos_clave": "Evalúa la sobrecarga física, emocional y social de quien ejerce el rol de cuidador.",
       "factores_relacionados": [
         "Responsabilidades de cuidado durante las 24 horas",
         "Duración prolongada de los cuidados",
@@ -1495,15 +1590,19 @@
           ]
         }
       ],
-      "caso_voz": "Familiar única a cargo de un adulto mayor dependiente refiere agotamiento extremo, insomnio y falta de apoyo familiar.",
-      "palabras_clave_voz": [
-        "00061",
-        "carga excesiva de cuidados",
+      "caso_voz": "Cuidador familiar refiere fatiga física y emocional, falta de descanso, alteración del sueño y dificultad para sostener las tareas de cuidado.",
+      "claves_principales": [
         "cuidador",
+        "carga excesiva de cuidados",
+        "00061",
+        "fatiga del cuidador"
+      ],
+      "claves_secundarias": [
         "factores estresantes del cuidador familiar",
-        "agotamiento",
-        "apoyo al cuidador principal",
-        "cansancio del rol de cuidador"
+        "cuidado familiar",
+        "aislamiento social",
+        "descanso",
+        "apoyo al cuidador principal"
       ]
     },
     {
@@ -1513,8 +1612,8 @@
       "clase": "Clase 3: Reproducción",
       "etiqueta": "Disposición para mejorar el proceso de maternidad",
       "definicion": "Patrón de preparación y mantenimiento de un embarazo, parto y cuidado del recién nacido saludables que puede ser fortalecido.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Diagnóstico de Promoción de la Salud ideal para educación perinatal y consejería en lactancia materna.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Aplica cuando se expresa disposición para fortalecer el embarazo, parto, posparto o cuidado del recién nacido.",
       "factores_relacionados": [
         "Motivación materna y familiar"
       ],
@@ -1549,16 +1648,20 @@
           ]
         }
       ],
-      "caso_voz": "Puérpera inmediata solicita enseñanza sobre posiciones correctas de amamantamiento para lograr lactancia materna exclusiva.",
-      "palabras_clave_voz": [
-        "proceso de maternidad",
+      "caso_voz": "Gestante o puérpera expresa deseo de mejorar el cuidado del recién nacido y las técnicas de lactancia materna.",
+      "claves_principales": [
+        "00208",
+        "disposicion para mejorar el proceso de maternidad",
         "lactancia materna",
-        "puerpera",
-        "amamantar",
-        "conocimiento: lactancia materna",
-        "disposición para mejorar el proceso de maternidad",
+        "proceso de maternidad",
+        "disposición para mejorar el proceso de maternidad"
+      ],
+      "claves_secundarias": [
         "asesoramiento en la lactancia",
-        "00208"
+        "recien nacido",
+        "posparto",
+        "conocimiento: lactancia materna",
+        "prenatal"
       ]
     },
     {
@@ -1568,8 +1671,8 @@
       "clase": "Clase 2: Respuestas de afrontamiento",
       "etiqueta": "Ansiedad",
       "definicion": "Respuesta emocional a una amenaza difusa en la que el individuo anticipa un peligro inminente inespecífico, una catástrofe o una desgracia.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Diferenciar de Temor (00148): en el Temor el peligro es específico e identificable; en la Ansiedad la amenaza es difusa o anticipatoria.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Responde a una amenaza difusa o inespecífica, con inquietud, angustia, temblor o taquicardia.",
       "factores_relacionados": [
         "Amenaza en el estado actual de salud",
         "Entorno hospitalario desconocido o preoperatorio",
@@ -1610,16 +1713,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente preoperatoria se muestra inquieta, con temblor distal, taquicardia y expresa angustia ante la intervención.",
-      "palabras_clave_voz": [
-        "inquietud",
-        "nivel de ansiedad",
-        "preoperatorio",
-        "angustia",
-        "disminución de la ansiedad",
+      "caso_voz": "Paciente refiere angustia o nerviosismo, presenta inquietud, temblor de manos y aumento de la frecuencia del pulso.",
+      "claves_principales": [
         "nerviosismo",
-        "ansiedad",
-        "00146"
+        "angustia",
+        "00146",
+        "inquietud",
+        "ansiedad"
+      ],
+      "claves_secundarias": [
+        "nivel de ansiedad",
+        "voz temblorosa",
+        "sudoracion palmar",
+        "temblor de manos",
+        "disminución de la ansiedad"
       ]
     },
     {
@@ -1629,8 +1736,8 @@
       "clase": "Clase 2: Respuestas de afrontamiento",
       "etiqueta": "Afrontamiento ineficaz",
       "definicion": "Patrón de apreciación no válida sobre los agentes estresantes, con esfuerzos cognitivos y/o conductuales que fracasan en gestionar las demandas relacionadas con el bienestar.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Observar conductas de negación o bloqueo frente a decisiones terapéuticas importantes.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se observa cuando los esfuerzos para afrontar la situación resultan insuficientes o bloqueados.",
       "factores_relacionados": [
         "Grado de amenaza percibido alto",
         "Falta de confianza en la capacidad para afrontar la situación",
@@ -1669,15 +1776,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente recién diagnosticado con enfermedad renal crónica rechaza conversar sobre su tratamiento y niega su condición.",
-      "palabras_clave_voz": [
-        "00069",
-        "afrontamiento de problemas",
+      "caso_voz": "Paciente expresa incapacidad para afrontar el problema, muestra conductas de negación o evitación y dificultad para resolver decisiones.",
+      "claves_principales": [
+        "incapacidad para pedir ayuda",
         "evitacion",
-        "crisis",
-        "mejorar el afrontamiento",
         "negacion",
-        "afrontamiento ineficaz"
+        "afrontamiento ineficaz",
+        "00069"
+      ],
+      "claves_secundarias": [
+        "resolucion ineficaz",
+        "concentracion",
+        "afrontamiento de problemas",
+        "estresantes",
+        "mejorar el afrontamiento"
       ]
     },
     {
@@ -1687,8 +1799,8 @@
       "clase": "Clase 3: Congruencia entre valores/creencias/acciones",
       "etiqueta": "Sufrimiento espiritual",
       "definicion": "Estado de sufrimiento relacionado con el deterioro de la habilidad para experimentar el sentido de la vida a través de conexiones consigo mismo, el mundo o un poder superior.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Respetar siempre las creencias propias del paciente sin imponer valores personales.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Implica alteración del sentido o propósito vital y de las conexiones espirituales.",
       "factores_relacionados": [
         "Proceso de agonía o enfermedad crónica avanzada",
         "Pérdida de un ser querido",
@@ -1727,15 +1839,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente en cuidados paliativos expresa entre lágrimas sentir vacío interior y cuestiona el propósito de su sufrimiento.",
-      "palabras_clave_voz": [
-        "sufrimiento espiritual",
-        "vacio",
-        "paliativos",
-        "apoyo espiritual",
+      "caso_voz": "Paciente cuestiona el sentido de la vida y del propio sufrimiento, expresa vacío interior o solicita asistencia espiritual.",
+      "claves_principales": [
+        "angustia existencial",
         "00066",
+        "vacio interior",
         "sentido de la vida",
-        "salud espiritual"
+        "sufrimiento espiritual"
+      ],
+      "claves_secundarias": [
+        "asistencia espiritual",
+        "salud espiritual",
+        "desamparo",
+        "apoyo espiritual"
       ]
     },
     {
@@ -1745,8 +1861,8 @@
       "clase": "Clase 1: Infección",
       "etiqueta": "Riesgo de infección",
       "definicion": "Susceptibilidad a sufrir una invasión y multiplicación de organismos patógenos que puede comprometer la salud.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026 (Diagnóstico de Riesgo).",
-      "puntos_clave": "Nunca redactar 'manifestado por' en este diagnóstico. Si ya hay pus, fiebre o leucocitosis, ya no es riesgo.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026 (Diagnóstico de riesgo).",
+      "puntos_clave": "Aplica ante vulnerabilidad por alteración cutánea o procedimientos invasivos sin infección confirmada.",
       "factores_relacionados": [
         "Alteración de la integridad cutánea",
         "Procedimientos invasivos",
@@ -1780,17 +1896,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente postoperado inmediato con herida quirúrgica abdominal y catéter venoso periférico, afebril pero con barreras cutáneas abiertas.",
-      "palabras_clave_voz": [
-        "control del riesgo: proceso infeccioso",
-        "riesgo de infeccion",
-        "herida quirurgica",
-        "asepsia",
-        "cateter",
+      "caso_voz": "Paciente con herida quirúrgica o dispositivo invasivo presenta riesgo de invasión por organismos patógenos.",
+      "claves_principales": [
+        "organismos patogenos",
+        "00004",
+        "procedimientos invasivos",
         "riesgo de infección",
-        "infeccion",
+        "riesgo de infeccion"
+      ],
+      "claves_secundarias": [
+        "asepsia",
+        "herida quirurgica",
         "control de infecciones",
-        "00004"
+        "control del riesgo: proceso infeccioso",
+        "integridad cutanea"
       ]
     },
     {
@@ -1800,8 +1919,8 @@
       "clase": "Clase 2: Lesión física",
       "etiqueta": "Limpieza ineficaz de las vías aéreas",
       "definicion": "Capacidad reducida para eliminar las secreciones u obstrucciones del tracto respiratorio para mantener las vías aéreas permeables.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Prioridad ABC (Vía aérea): auscultar presencia de roncus o estertores y valorar efectividad de la tos.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se identifica por dificultad para eliminar secreciones y sonidos respiratorios adventicios como roncus o sibilancias.",
       "factores_relacionados": [
         "Mucosidad excesiva",
         "Secreciones bronquiales espesas",
@@ -1840,17 +1959,22 @@
           ]
         }
       ],
-      "caso_voz": "Paciente presenta abundante secreción bronquial espesa que no logra expectorar, con roncus bilaterales y tos débil.",
-      "palabras_clave_voz": [
-        "estado respiratorio: permeabilidad de las vías respiratorias",
-        "manejo de las vías aéreas",
+      "caso_voz": "Paciente presenta secreciones espesas, tos inefectiva y roncus o sibilancias en la auscultación respiratoria.",
+      "claves_principales": [
         "limpieza ineficaz de las vías aéreas",
+        "roncus",
         "limpieza ineficaz de las vias aereas",
+        "tos inefectiva",
+        "vias aereas",
         "secreciones",
-        "flema",
-        "00031",
-        "tos",
-        "roncus"
+        "00031"
+      ],
+      "claves_secundarias": [
+        "esputo",
+        "manejo de las vías aéreas",
+        "estertores",
+        "estado respiratorio: permeabilidad de las vías respiratorias",
+        "sibilancias"
       ]
     },
     {
@@ -1860,8 +1984,8 @@
       "clase": "Clase 2: Lesión física",
       "etiqueta": "Lesión por presión en el adulto",
       "definicion": "Daño localizado en la piel y/o tejido subyacente, por lo general sobre una prominencia ósea, como resultado de la presión o la presión en combinación con el cizallamiento.",
-      "nota_edicion": "Diagnóstico oficial vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Clasificar el estadio de la lesión (I al IV) y aplicar escala de Braden para prevención en otras zonas.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Describe daño localizado en piel o tejido subyacente por presión y/o cizallamiento en adultos.",
       "factores_relacionados": [
         "Presión prolongada sobre prominencias óseas",
         "Fuerzas de fricción y cizallamiento",
@@ -1901,18 +2025,22 @@
           ]
         }
       ],
-      "caso_voz": "Paciente encamado presenta en región sacra eritema que no blanquea a la digitopresión y pérdida parcial de epidermis de 3 cm.",
-      "palabras_clave_voz": [
-        "eritema",
-        "ulcera por presion",
-        "cuidados de las úlceras por presión",
-        "piel",
-        "upp",
-        "lesión por presión en el adulto",
-        "00312",
-        "sacro",
+      "caso_voz": "Paciente adulto encamado presenta eritema no blanqueable o pérdida tisular en prominencia ósea por presión y cizallamiento.",
+      "claves_principales": [
+        "eritema no blanqueable",
         "lesion por presion",
-        "integridad tisular: piel y membranas mucosas"
+        "lesion por presion en el adulto",
+        "prominencia osea",
+        "00312",
+        "lesión por presión en el adulto"
+      ],
+      "claves_secundarias": [
+        "inmovilidad",
+        "cizallamiento",
+        "integridad tisular: piel y membranas mucosas",
+        "talones",
+        "cuidados de las úlceras por presión",
+        "zona sacra"
       ]
     },
     {
@@ -1922,8 +2050,8 @@
       "clase": "Clase 2: Lesión física",
       "etiqueta": "Riesgo de caídas en el adulto",
       "definicion": "Susceptibilidad del adulto de experimentar un evento que resulte en acabar tumbado en el suelo o en otro nivel inferior por descuido.",
-      "nota_edicion": "Diagnóstico oficial vigente en NANDA-I 2024-2026 (específico para adultos).",
-      "puntos_clave": "Aplicar escala de Morse o Downton al ingreso y dejar barandas elevadas y timbre al alcance.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Valora la susceptibilidad del adulto a caídas según factores de riesgo físicos, farmacológicos o ambientales.",
       "factores_relacionados": [
         "Disminución de la fuerza en las extremidades inferiores",
         "Alteración del equilibrio y la marcha",
@@ -1958,17 +2086,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente de 76 años medicado con antihipertensivos refiere mareos al incorporarse e intenta caminar solo al baño de noche.",
-      "palabras_clave_voz": [
-        "morse",
-        "conducta de prevención de caídas",
+      "caso_voz": "Paciente adulto presenta disminución de fuerza en miembros inferiores, alteración del equilibrio o mareos con riesgo de caída.",
+      "claves_principales": [
+        "riesgo de caídas en el adulto",
+        "riesgo de caidas en el adulto",
         "00303",
         "caidas",
-        "mareos",
-        "riesgo de caídas en el adulto",
-        "prevención de caídas",
-        "barandas",
         "riesgo de caidas"
+      ],
+      "claves_secundarias": [
+        "mareos",
+        "conducta de prevención de caídas",
+        "prevención de caídas",
+        "equilibrio",
+        "fuerza muscular",
+        "marcha"
       ]
     },
     {
@@ -1978,8 +2110,8 @@
       "clase": "Clase 6: Termorregulación",
       "etiqueta": "Hipertermia",
       "definicion": "Temperatura corporal central superior al rango normal diurno a causa del fallo de la termorregulación.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Diferenciar de Termorregulación ineficaz (00008): en Hipertermia la temperatura solo está elevada; en la ineficaz oscila entre frío y calor.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se caracteriza por elevación de la temperatura corporal por fallo de la termorregulación.",
       "factores_relacionados": [
         "Deshidratación",
         "Proceso infeccioso",
@@ -2021,17 +2153,20 @@
           ]
         }
       ],
-      "caso_voz": "Paciente ingresa con temperatura de 39.2 grados, piel caliente al tacto, rubor facial y frecuencia cardíaca de 114 latidos por minuto.",
-      "palabras_clave_voz": [
+      "caso_voz": "Paciente presenta temperatura corporal elevada, piel caliente al tacto, rubor facial y taquicardia.",
+      "claves_principales": [
+        "temperatura corporal elevada",
         "00007",
         "hipertermia",
+        "piel caliente"
+      ],
+      "claves_secundarias": [
+        "diaforesis",
+        "temperatura",
         "rubor",
-        "calentura",
         "termorregulación",
-        "fiebre",
-        "piel caliente",
         "tratamiento de la fiebre",
-        "temperatura alta"
+        "escalofrios"
       ]
     },
     {
@@ -2041,8 +2176,8 @@
       "clase": "Clase 6: Termorregulación",
       "etiqueta": "Hipotermia",
       "definicion": "Temperatura corporal central inferior al rango normal diurno en individuos > 28 días de vida.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Vigilar especialmente en recuperación posanestésica y adultos mayores.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Se identifica por temperatura corporal inferior al rango normal, piel fría, palidez o escalofríos.",
       "factores_relacionados": [
         "Exposición a un entorno frío",
         "Ropa inadecuada",
@@ -2082,16 +2217,19 @@
           ]
         }
       ],
-      "caso_voz": "Paciente sale de quirófano con temperatura de 35.1 grados, piel fría y pálida, escalofríos intensos y acrocianosis.",
-      "palabras_clave_voz": [
-        "temperatura baja",
-        "piel fria",
-        "escalofrios",
-        "frio",
-        "termorregulación",
-        "hipotermia",
+      "caso_voz": "Paciente presenta temperatura corporal disminuida, piel fría y pálida, escalofríos o llenado capilar lento.",
+      "claves_principales": [
         "00006",
-        "tratamiento de la hipotermia"
+        "piel fria",
+        "temperatura corporal inferior",
+        "hipotermia"
+      ],
+      "claves_secundarias": [
+        "tratamiento de la hipotermia",
+        "piloereccion",
+        "termorregulación",
+        "palidez",
+        "escalofrios"
       ]
     },
     {
@@ -2101,8 +2239,8 @@
       "clase": "Clase 1: Confort físico",
       "etiqueta": "Dolor agudo",
       "definicion": "Experiencia sensitiva y emocional desagradable ocasionada por una lesión tisular real o potencial, de inicio súbito o lento y con una duración inferior a 3 meses.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Evaluar siempre con escala numérica EVA (0 a 10) antes y 30 minutos después de la analgesia.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Lesión tisular real o potencial de inicio súbito o lento y duración menor a 3 meses.",
       "factores_relacionados": [
         "Agentes lesivos biológicos",
         "Agentes lesivos físicos",
@@ -2135,23 +2273,26 @@
           "clase_nic": "Clase E: Fomento de la comodidad física",
           "etiqueta": "Manejo del dolor: agudo",
           "actividades": [
-            "Realizar una valoración exhaustiva del dolor (localización, aparición, duración, intensidad EVA).",
+            "Realizar una valoración exhaustiva del dolor (localización, aparición, duración, intensidad).",
             "Administrar analgésicos prescritos y reevaluar el alivio a los 30 minutos.",
             "Proporcionar medidas no farmacológicas de alivio (posición antálgica, relajación)."
           ]
         }
       ],
-      "caso_voz": "Paciente postoperado refiere dolor intenso en zona quirúrgica con puntuación EVA 8 sobre 10, facies álgica y taquicardia.",
-      "palabras_clave_voz": [
-        "00132",
-        "analgesia",
-        "manejo del dolor: agudo",
-        "eva",
-        "nivel del dolor",
-        "dolor",
-        "me duele",
+      "caso_voz": "Paciente postoperatorio indica dolor agudo en la zona de la cirugía, se observa expresión facial de dolor, intensidad 8/10, frecuencia cardíaca 105 lpm y frecuencia respiratoria de 24 rpm.",
+      "claves_principales": [
+        "zona de la cirugia",
+        "dolor 8",
         "dolor agudo",
-        "facies algica"
+        "expresion facial de dolor",
+        "00132"
+      ],
+      "claves_secundarias": [
+        "manejo del dolor: agudo",
+        "conducta defensiva",
+        "postoperatorio",
+        "cirugia",
+        "nivel del dolor"
       ]
     },
     {
@@ -2161,8 +2302,8 @@
       "clase": "Clase 1: Confort físico",
       "etiqueta": "Dolor crónico",
       "definicion": "Experiencia sensitiva y emocional desagradable ocasionada por una lesión tisular real o potencial, con una duración superior a 3 meses.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "El punto de corte oficial para diferenciarlo del dolor agudo es una duración mayor a 3 meses.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Experiencia sensitiva y emocional desagradable con duración superior a 3 meses.",
       "factores_relacionados": [
         "Afección musculoesquelética crónica",
         "Compresión nerviosa o neuropatía",
@@ -2200,16 +2341,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente de 68 años refiere dolor articular persistente desde hace 8 meses que limita su marcha e interrumpe su sueño.",
-      "palabras_clave_voz": [
-        "dolor crónico",
-        "manejo del dolor: crónico",
-        "00133",
+      "caso_voz": "Paciente refiere dolor persistente por más de tres meses que altera sus actividades habituales, el sueño y el descanso.",
+      "claves_principales": [
+        "mas de 3 meses",
         "dolor cronico",
-        "control del dolor",
-        "meses con dolor",
         "dolor persistente",
-        "articular"
+        "superior a 3 meses",
+        "dolor crónico",
+        "00133"
+      ],
+      "claves_secundarias": [
+        "actividades previas",
+        "fatiga",
+        "control del dolor",
+        "manejo del dolor: crónico",
+        "sueno"
       ]
     },
     {
@@ -2219,8 +2365,8 @@
       "clase": "Clase 1: Confort físico",
       "etiqueta": "Náuseas",
       "definicion": "Fenómeno subjetivo desagradable en la parte posterior de la garganta y el estómago que puede o no dar lugar a vómitos.",
-      "nota_edicion": "Vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Colocar en decúbito lateral o Semi-Fowler si hay riesgo de vómito para proteger la vía aérea.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Sensación subjetiva desagradable en garganta y estómago con o sin vómitos, acompañada de salivación o arcadas.",
       "factores_relacionados": [
         "Distensión o irritación gástrica",
         "Dolor posoperatorio o efecto de anestésicos",
@@ -2260,17 +2406,21 @@
           ]
         }
       ],
-      "caso_voz": "Paciente en recuperación posanestésica refiere intensa sensación de asco, sialorrea, palidez facial y arcadas.",
-      "palabras_clave_voz": [
+      "caso_voz": "Paciente refiere náuseas, aumento de la salivación, aversión a los alimentos o arcadas.",
+      "claves_principales": [
+        "aumento de la salivacion",
+        "aversion a los alimentos",
+        "nauseas",
+        "náuseas",
+        "arcadas",
+        "00134"
+      ],
+      "claves_secundarias": [
+        "severidad de las náuseas y los vómitos",
         "vomitos",
         "manejo de las náuseas",
-        "asco",
-        "arcadas",
-        "severidad de las náuseas y los vómitos",
-        "ganas de vomitar",
-        "00134",
-        "nauseas",
-        "náuseas"
+        "palidez",
+        "sudoracion fria"
       ]
     },
     {
@@ -2280,8 +2430,8 @@
       "clase": "Clase 2: Desarrollo",
       "etiqueta": "Retraso en el desarrollo infantil",
       "definicion": "Niño que no alcanza los hitos del desarrollo esperados para su edad dentro de una ventana de variación normal.",
-      "nota_edicion": "Diagnóstico oficial vigente en NANDA-I 2024-2026.",
-      "puntos_clave": "Evaluar las 4 áreas del desarrollo infantil: motora gruesa, motora fina, lenguaje y coordinación/social.",
+      "nota_edicion": "Etiqueta vigente en NANDA-I 2024-2026.",
+      "puntos_clave": "Evalúa si el niño alcanza o no los hitos motores, de lenguaje o sociales esperados para su edad.",
       "factores_relacionados": [
         "Estimulación ambiental e interacción inadecuadas",
         "Nutrición inadecuada en la primera infancia",
@@ -2319,16 +2469,19 @@
           ]
         }
       ],
-      "caso_voz": "En control pediátrico de un niño de 24 meses se observa ausencia de palabras sueltas y rezago en motricidad fina acorde a su edad.",
-      "palabras_clave_voz": [
-        "00305",
-        "fomentar el desarrollo: niño",
-        "motricidad",
-        "lenguaje",
-        "nino",
-        "desarrollo infantil",
+      "caso_voz": "Niño no alcanza los hitos motores gruesos o finos o el desarrollo del lenguaje esperados para su edad.",
+      "claves_principales": [
         "retraso en el desarrollo",
-        "retraso en el desarrollo infantil"
+        "00305",
+        "retraso en el desarrollo infantil",
+        "hitos del desarrollo"
+      ],
+      "claves_secundarias": [
+        "lenguaje",
+        "motor grueso",
+        "fomentar el desarrollo: niño",
+        "motor fino",
+        "desarrollo infantil"
       ]
     }
   ]

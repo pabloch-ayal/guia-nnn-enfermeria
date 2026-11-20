@@ -44,7 +44,6 @@ import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
 import java.util.Locale
 
-// --- MODELOS DE DATOS OFICIALES ---
 data class DominioNandaInfo(val id: Int, val nombre: String, val clases: List<String>)
 data class NandaTax(val titulo: String, val resumen: String, val dominios: List<DominioNandaInfo>)
 data class NocNicTax(val titulo: String, val resumen: String, val dominios: List<String>)
@@ -79,7 +78,8 @@ data class DiagnosticoNNN(
     val noc: List<NocItem>,
     val nic: List<NicItem>,
     val caso_voz: String,
-    val palabras_clave_voz: List<String>
+    val claves_principales: List<String>,
+    val claves_secundarias: List<String>
 )
 data class BaseDatosNNN(
     val taxonomia: TaxonomiaOficial,
@@ -87,7 +87,6 @@ data class BaseDatosNNN(
     val diagnosticos: List<DiagnosticoNNN>
 )
 
-// --- PALETA CLÍNICA ---
 val TealPrimary = Color(0xFF00897B)
 val TealDark = Color(0xFF004D40)
 val CoralReal = Color(0xFFE53935)
@@ -164,6 +163,7 @@ fun AppPrincipal(baseDatos: BaseDatosNNN, hablar: (String) -> Unit) {
 
     var seccionActual by remember { mutableIntStateOf(0) }
     var diagnosticoSeleccionado by remember { mutableStateOf<DiagnosticoNNN?>(null) }
+    var tabInicialDetalle by remember { mutableIntStateOf(0) }
     var mostrarTerminologia by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -203,9 +203,10 @@ fun AppPrincipal(baseDatos: BaseDatosNNN, hablar: (String) -> Unit) {
                 diagnosticoSeleccionado != null -> {
                     PantallaDetalleInteractiva(
                         diag = diagnosticoSeleccionado!!,
+                        tabInicial = tabInicialDetalle,
                         esDominado = dominados.contains(diagnosticoSeleccionado!!.codigo),
                         onToggleDominado = { alternarDominado(diagnosticoSeleccionado!!.codigo) },
-                        volver = { diagnosticoSeleccionado = null },
+                        volver = { diagnosticoSeleccionado = null; tabInicialDetalle = 0 },
                         hablar = hablar
                     )
                 }
@@ -214,7 +215,10 @@ fun AppPrincipal(baseDatos: BaseDatosNNN, hablar: (String) -> Unit) {
                         baseDatos = baseDatos,
                         dominados = dominados,
                         abrirTerminologia = { mostrarTerminologia = true },
-                        alSeleccionar = { diagnosticoSeleccionado = it }
+                        alSeleccionar = { diag, tab ->
+                            diagnosticoSeleccionado = diag
+                            tabInicialDetalle = tab
+                        }
                     )
                 }
                 seccionActual == 1 -> {
@@ -232,22 +236,49 @@ fun AppPrincipal(baseDatos: BaseDatosNNN, hablar: (String) -> Unit) {
     }
 }
 
-// --- PANTALLA 1: EXPLORADOR JERÁRQUICO + EVALUACIÓN POR VOZ DE SÍNTOMAS ---
+fun calcularCoincidenciaDiagnostico(diag: DiagnosticoNNN, consulta: String): Int {
+    val q = consulta.lowercase().trim()
+    if (q.isBlank()) return 0
+    var puntaje = 0
+    if (q.contains(diag.codigo.lowercase())) puntaje += 100
+    if (q.contains(diag.etiqueta.lowercase()) || diag.etiqueta.lowercase().contains(q)) puntaje += 80
+
+    diag.claves_principales.forEach { clave ->
+        if (clave.length >= 3 && q.contains(clave)) puntaje += 35
+    }
+    diag.claves_secundarias.forEach { clave ->
+        if (clave.length >= 4 && q.contains(clave)) puntaje += 12
+    }
+
+    val palabras = q.replace(Regex("[^a-záéíóúñ0-9 ]"), " ")
+        .split(" ")
+        .filter { it.length >= 4 && it !in listOf("paciente", "tiene", "presenta", "indica", "observa", "zona", "frecuencia", "para", "como") }
+
+    val textoBase = "${diag.etiqueta} ${diag.definicion} ${diag.factores_relacionados.joinToString(" ")} ${diag.caracteristicas_definitorias.joinToString(" ")}".lowercase()
+    palabras.forEach { p ->
+        if (textoBase.contains(p)) puntaje += 6
+    }
+    return puntaje
+}
+
 @Composable
 fun PantallaExplorar(
     baseDatos: BaseDatosNNN,
     dominados: List<String>,
     abrirTerminologia: () -> Unit,
-    alSeleccionar: (DiagnosticoNNN) -> Unit
+    alSeleccionar: (DiagnosticoNNN, Int) -> Unit
 ) {
     val context = LocalContext.current
     val diagnosticos = baseDatos.diagnosticos
+
+    var libroActivo by remember { mutableStateOf("NANDA") }
     var busqueda by remember { mutableStateOf("") }
     var escuchandoBusqueda by remember { mutableStateOf(false) }
     var filtroTipo by remember { mutableStateOf("TODOS") }
     var dominioSeleccionado by remember { mutableStateOf<DominioNandaInfo?>(null) }
     var claseSeleccionada by remember { mutableStateOf("TODAS") }
-    var modoEvaluacionVoz by remember { mutableStateOf(false) }
+    var filtroNocNicDom by remember { mutableStateOf("TODOS") }
+    var consultaEvaluada by remember { mutableStateOf("") }
 
     val permisoMicBusqueda = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -255,15 +286,21 @@ fun PantallaExplorar(
         if (!concedido) Toast.makeText(context, "Activa el micrófono para dictar síntomas", Toast.LENGTH_SHORT).show()
     }
 
-    // Coincidencia inteligente por palabras individuales cuando dictan varios síntomas
-    val palabrasConsulta = remember(busqueda) {
-        busqueda.lowercase()
-            .replace(Regex("[^a-záéíóúñ0-9 ]"), " ")
-            .split(" ")
-            .filter { it.length >= 4 && it !in listOf("paciente", "tiene", "presenta", "con", "para", "como", "esta", "sobre") }
+    val textoParaEvaluar = if (busqueda.isNotBlank()) busqueda else consultaEvaluada
+
+    val diagnosticosOrdenados = remember(diagnosticos, textoParaEvaluar) {
+        if (textoParaEvaluar.isBlank()) {
+            diagnosticos
+        } else {
+            diagnosticos
+                .map { it to calcularCoincidenciaDiagnostico(it, textoParaEvaluar) }
+                .filter { it.second > 0 }
+                .sortedByDescending { it.second }
+                .map { it.first }
+        }
     }
 
-    val filtrados = diagnosticos.filter { diag ->
+    val filtradosNanda = diagnosticosOrdenados.filter { diag ->
         val coincideTipo = when (filtroTipo) {
             "TODOS" -> true
             "DOMINADOS" -> dominados.contains(diag.codigo)
@@ -271,21 +308,10 @@ fun PantallaExplorar(
         }
         val coincideDominio = dominioSeleccionado == null || diag.dominio == dominioSeleccionado!!.nombre
         val coincideClase = claseSeleccionada == "TODAS" || diag.clase == claseSeleccionada
-
-        val coincideTexto = if (busqueda.isBlank()) {
-            true
-        } else {
-            val textoCompleto = "${diag.codigo} ${diag.etiqueta} ${diag.dominio} ${diag.clase} ${diag.definicion} " +
-                "${diag.factores_relacionados.joinToString(" ")} ${diag.caracteristicas_definitorias.joinToString(" ")} " +
-                diag.palabras_clave_voz.joinToString(" ")
-            textoCompleto.contains(busqueda.trim(), true) ||
-                (palabrasConsulta.isNotEmpty() && palabrasConsulta.any { pal -> textoCompleto.lowercase().contains(pal) })
-        }
-        coincideTipo && coincideDominio && coincideClase && coincideTexto
+        coincideTipo && coincideDominio && coincideClase
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // Cabecera
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -304,7 +330,7 @@ fun PantallaExplorar(
                     Text(
                         "NANDA-I 2024-2026 • NOC • NIC",
                         color = Color.White.copy(alpha = 0.9f),
-                        fontSize = 12.sp,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Surface(
@@ -324,18 +350,21 @@ fun PantallaExplorar(
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    "¿Qué paciente valoramos hoy?",
+                    "¿Qué paciente diagnosticamos hoy?",
                     color = Color.White,
-                    fontSize = 21.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
                     value = busqueda,
-                    onValueChange = { busqueda = it; if (it.isBlank()) modoEvaluacionVoz = false },
+                    onValueChange = {
+                        busqueda = it
+                        if (it.isNotBlank()) consultaEvaluada = it else consultaEvaluada = ""
+                    },
                     placeholder = {
                         Text(
-                            if (escuchandoBusqueda) "🎙️ Dicta los signos y síntomas..." else "Dicta síntomas (ej. fiebre y piel caliente)...",
+                            if (escuchandoBusqueda) "🎙️ Dicta los síntomas del paciente..." else "Dicta o escribe síntomas o código...",
                             fontSize = 13.sp
                         )
                     },
@@ -343,7 +372,7 @@ fun PantallaExplorar(
                     trailingIcon = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             if (busqueda.isNotEmpty()) {
-                                IconButton(onClick = { busqueda = ""; modoEvaluacionVoz = false }) {
+                                IconButton(onClick = { busqueda = ""; consultaEvaluada = "" }) {
                                     Icon(Icons.Default.Clear, contentDescription = "Limpiar", tint = Color.Gray)
                                 }
                             }
@@ -357,7 +386,7 @@ fun PantallaExplorar(
                                             escuchandoBusqueda = false
                                             if (!texto.startsWith("No se escuchó")) {
                                                 busqueda = texto
-                                                modoEvaluacionVoz = true
+                                                consultaEvaluada = texto
                                             } else {
                                                 Toast.makeText(context, texto, Toast.LENGTH_SHORT).show()
                                             }
@@ -386,238 +415,393 @@ fun PantallaExplorar(
             }
         }
 
-        // Filtros por Tipo y Progreso
-        LazyRow(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        // Selector explícito de Taxonomía: NANDA-I / NOC / NIC
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            val tipos = listOf(
-                "TODOS" to "✨ Todos (${diagnosticos.size})",
-                "REAL" to "🔴 Reales",
-                "RIESGO" to "🟡 Riesgo",
-                "PROMOCION" to "🟢 Promoción",
-                "DOMINADOS" to "✅ Dominados (${dominados.size})"
-            )
-            items(tipos) { (clave, titulo) ->
-                val sel = filtroTipo == clave
-                val bg by animateColorAsState(if (sel) TealPrimary else Color.White, label = "")
+            listOf(
+                "NANDA" to "NANDA-I (13/48)",
+                "NOC" to "NOC (7/36)",
+                "NIC" to "NIC (7/30)"
+            ).forEach { (clave, etiquetaBtn) ->
+                val activo = libroActivo == clave
                 Surface(
-                    shape = RoundedCornerShape(50),
-                    color = bg,
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (activo) TealDark else Color.White,
                     shadowElevation = 2.dp,
-                    modifier = Modifier.clickable { filtroTipo = clave }
-                ) {
-                    Text(
-                        text = titulo,
-                        color = if (sel) Color.White else Color.DarkGray,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 7.dp)
-                    )
-                }
-            }
-        }
-
-        // Nivel 1: Carrusel de los 13 Dominios NANDA-I
-        LazyRow(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            item {
-                val sel = dominioSeleccionado == null
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = if (sel) TealDark else Color(0xFFE0F2F1),
-                    modifier = Modifier.clickable { dominioSeleccionado = null; claseSeleccionada = "TODAS" }
-                ) {
-                    Text(
-                        "📚 13 Dominios",
-                        color = if (sel) Color.White else TealDark,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-                    )
-                }
-            }
-            items(baseDatos.taxonomia.nanda.dominios) { dom ->
-                val sel = dominioSeleccionado?.id == dom.id
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = if (sel) TealDark else Color(0xFFE0F2F1),
-                    modifier = Modifier.clickable {
-                        dominioSeleccionado = dom
-                        claseSeleccionada = "TODAS"
-                    }
-                ) {
-                    Text(
-                        "Dominio ${dom.id}",
-                        color = if (sel) Color.White else TealDark,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-                    )
-                }
-            }
-        }
-
-        // Nivel 2: Clases del Dominio seleccionado (48 clases en total en NANDA-I)
-        if (dominioSeleccionado != null) {
-            Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
-                Text(
-                    text = "${dominioSeleccionado!!.nombre} (${dominioSeleccionado!!.clases.size} clases):",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = TealDark
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    item {
-                        val sel = claseSeleccionada == "TODAS"
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (sel) PurpleQuiz else Color.White,
-                            modifier = Modifier.clickable { claseSeleccionada = "TODAS" }
-                        ) {
-                            Text(
-                                "Todas las clases",
-                                color = if (sel) Color.White else PurpleQuiz,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-                            )
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            libroActivo = clave
+                            filtroNocNicDom = "TODOS"
                         }
-                    }
-                    items(dominioSeleccionado!!.clases) { cls ->
-                        val sel = claseSeleccionada == cls
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (sel) PurpleQuiz else Color.White,
-                            modifier = Modifier.clickable { claseSeleccionada = cls }
-                        ) {
-                            Text(
-                                cls,
-                                color = if (sel) Color.White else PurpleQuiz,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-                            )
-                        }
-                    }
+                ) {
+                    Text(
+                        text = etiquetaBtn,
+                        color = if (activo) Color.White else TealDark,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 11.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 4.dp)
+                    )
                 }
             }
         }
 
-        // Guía de Evaluación Clínica cuando el estudiante dicta síntomas por voz
-        if (modoEvaluacionVoz && busqueda.isNotBlank()) {
+        // Respuesta directa NANDA + NOC + NIC cuando hay síntomas o consulta activa
+        if (textoParaEvaluar.isNotBlank()) {
+            val mejorDiag = diagnosticosOrdenados.firstOrNull()
             Card(
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFEDE9FE)),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
                 shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp)
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
+                Column(modifier = Modifier.padding(14.dp)) {
                     Text(
-                        "🩺 Guía de Valoración Clínica para: \"$busqueda\"",
+                        "Valoración directa para: \"$textoParaEvaluar\"",
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 13.sp,
-                        color = PurpleQuiz
+                        color = TealDark
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    if (filtrados.isNotEmpty()) {
-                        val top = filtrados.first()
+                    Spacer(modifier = Modifier.height(6.dp))
+                    if (mejorDiag != null) {
+                        val nocRef = mejorDiag.noc.firstOrNull()
+                        val nicRef = mejorDiag.nic.firstOrNull()
                         Text(
-                            "1. NANDA sugerido: (${top.codigo}) ${top.etiqueta} [${top.dominio}].\n" +
-                            "2. Meta NOC a evaluar: ${top.noc.firstOrNull()?.etiqueta ?: "-"} (Escala 1 a 5).\n" +
-                            "3. Acción NIC prioritaria: ${top.nic.firstOrNull()?.etiqueta ?: "-"}.\n" +
-                            "Toca una tarjeta abajo para armar el PAE completo.",
+                            "• NANDA: (${mejorDiag.codigo}) ${mejorDiag.etiqueta} [${mejorDiag.tipo}] — ${mejorDiag.dominio} / ${mejorDiag.clase}.",
                             fontSize = 12.sp,
-                            color = Color(0xFF1E293B)
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF0F172A)
                         )
+                        Text(
+                            "  Características/factores de referencia: ${mejorDiag.caracteristicas_definitorias.joinToString(", ").ifEmpty { mejorDiag.factores_relacionados.joinToString(", ") }}.",
+                            fontSize = 11.sp,
+                            color = Color.DarkGray
+                        )
+                        if (nocRef != null) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                "• NOC: (${nocRef.codigo}) ${nocRef.etiqueta} — ${nocRef.dominio_noc}.",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = TealPrimary
+                            )
+                            Text(
+                                "  Indicadores: ${nocRef.indicadores.joinToString(" | ")}.",
+                                fontSize = 11.sp,
+                                color = Color.DarkGray
+                            )
+                        }
+                        if (nicRef != null) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                "• NIC: (${nicRef.codigo}) ${nicRef.etiqueta} — ${nicRef.dominio_nic}.",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = PurpleQuiz
+                            )
+                            Text(
+                                "  Actividades: ${nicRef.actividades.joinToString(" ")}",
+                                fontSize = 11.sp,
+                                color = Color.DarkGray
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Button(
+                            onClick = { alSeleccionar(mejorDiag, 0) },
+                            colors = ButtonDefaults.buttonColors(containerColor = TealPrimary),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Abrir enlace completo y redactar PAE", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
                     } else {
                         Text(
-                            "No se halló coincidencia directa. Recuerda dictar respuestas humanas o signos clínicos (ej. 'fiebre', 'dolor agudo', 'disnea', 'edema', 'estreñimiento') en lugar de diagnósticos médicos.",
+                            "No se encontró coincidencia verificada en los registros cargados para esos términos. Intenta describir signos o respuestas observables registradas (por ejemplo: dolor agudo, fiebre, disnea, diarrea, estreñimiento, edema o ansiedad).",
                             fontSize = 12.sp,
-                            color = Color(0xFF1E293B)
+                            color = Color.DarkGray
                         )
                     }
                 }
             }
         }
 
-        // Listado de Diagnósticos
-        LazyColumn(
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            if (filtrados.isEmpty()) {
-                item {
-                    Card(
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth()
+        if (libroActivo == "NANDA") {
+            LazyRow(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val tipos = listOf(
+                    "TODOS" to "Todos (${diagnosticos.size})",
+                    "REAL" to "Real",
+                    "RIESGO" to "Riesgo",
+                    "PROMOCION" to "Promoción",
+                    "DOMINADOS" to "Dominados (${dominados.size})"
+                )
+                items(tipos) { (clave, titulo) ->
+                    val sel = filtroTipo == clave
+                    val bg by animateColorAsState(if (sel) TealPrimary else Color.White, label = "")
+                    Surface(
+                        shape = RoundedCornerShape(50),
+                        color = bg,
+                        shadowElevation = 2.dp,
+                        modifier = Modifier.clickable { filtroTipo = clave }
                     ) {
-                        Column(
-                            modifier = Modifier.padding(20.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text("Sin diagnósticos en esta selección", fontWeight = FontWeight.Bold, color = Color.DarkGray)
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                "Prueba seleccionando 'Todas las clases' o dicta síntomas observables del paciente.",
-                                fontSize = 12.sp,
-                                color = Color.Gray,
-                                textAlign = TextAlign.Center
-                            )
+                        Text(
+                            text = titulo,
+                            color = if (sel) Color.White else Color.DarkGray,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+            }
+
+            LazyRow(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                item {
+                    val sel = dominioSeleccionado == null
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (sel) TealDark else Color(0xFFE0F2F1),
+                        modifier = Modifier.clickable { dominioSeleccionado = null; claseSeleccionada = "TODAS" }
+                    ) {
+                        Text(
+                            "13 Dominios",
+                            color = if (sel) Color.White else TealDark,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+                items(baseDatos.taxonomia.nanda.dominios) { dom ->
+                    val sel = dominioSeleccionado?.id == dom.id
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (sel) TealDark else Color(0xFFE0F2F1),
+                        modifier = Modifier.clickable {
+                            dominioSeleccionado = dom
+                            claseSeleccionada = "TODAS"
+                        }
+                    ) {
+                        Text(
+                            "Dom ${dom.id}",
+                            color = if (sel) Color.White else TealDark,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+            }
+
+            if (dominioSeleccionado != null) {
+                Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
+                    Text(
+                        text = "${dominioSeleccionado!!.nombre} (${dominioSeleccionado!!.clases.size} clases):",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = TealDark
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        item {
+                            val sel = claseSeleccionada == "TODAS"
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (sel) PurpleQuiz else Color.White,
+                                modifier = Modifier.clickable { claseSeleccionada = "TODAS" }
+                            ) {
+                                Text(
+                                    "Todas las clases",
+                                    color = if (sel) Color.White else PurpleQuiz,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+                                )
+                            }
+                        }
+                        items(dominioSeleccionado!!.clases) { cls ->
+                            val sel = claseSeleccionada == cls
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (sel) PurpleQuiz else Color.White,
+                                modifier = Modifier.clickable { claseSeleccionada = cls }
+                            ) {
+                                Text(
+                                    cls,
+                                    color = if (sel) Color.White else PurpleQuiz,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+                                )
+                            }
                         }
                     }
                 }
             }
 
-            items(filtrados) { diag ->
-                val colorBorde = when (diag.tipo) {
-                    "REAL" -> CoralReal
-                    "RIESGO" -> AmberRiesgo
-                    else -> TealPrimary
-                }
-                val yaDominado = dominados.contains(diag.codigo)
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(filtradosNanda) { diag ->
+                    val colorBorde = when (diag.tipo) {
+                        "REAL" -> CoralReal
+                        "RIESGO" -> AmberRiesgo
+                        else -> TealPrimary
+                    }
+                    val yaDominado = dominados.contains(diag.codigo)
 
-                Card(
-                    shape = RoundedCornerShape(18.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { alSeleccionar(diag) }
-                ) {
-                    Column(modifier = Modifier.padding(14.dp)) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Surface(color = colorBorde.copy(alpha = 0.14f), shape = RoundedCornerShape(8.dp)) {
-                                Text(
-                                    text = "NANDA ${diag.codigo} • ${diag.tipo}",
-                                    color = colorBorde,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 11.sp,
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                                )
-                            }
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                if (yaDominado) {
-                                    Text("✅ Dominado", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.Bold)
-                                    Spacer(modifier = Modifier.width(6.dp))
+                    Card(
+                        shape = RoundedCornerShape(18.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { alSeleccionar(diag, 0) }
+                    ) {
+                        Column(modifier = Modifier.padding(14.dp)) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Surface(color = colorBorde.copy(alpha = 0.14f), shape = RoundedCornerShape(8.dp)) {
+                                    Text(
+                                        text = "NANDA ${diag.codigo} • ${diag.tipo}",
+                                        color = colorBorde,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        fontSize = 11.sp,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                    )
                                 }
-                                Icon(Icons.Default.ArrowForwardIos, contentDescription = null, tint = Color.Gray, modifier = Modifier.size(14.dp))
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    if (yaDominado) {
+                                        Text("Dominado", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.Bold)
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                    }
+                                    Icon(Icons.Default.ArrowForwardIos, contentDescription = null, tint = Color.Gray, modifier = Modifier.size(14.dp))
+                                }
                             }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(diag.etiqueta, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF0F172A))
+                            Text("${diag.dominio} • ${diag.clase}", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.SemiBold)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(diag.definicion, fontSize = 13.sp, color = Color.DarkGray, maxLines = 2)
                         }
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(diag.etiqueta, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF0F172A))
-                        Text("${diag.dominio} • ${diag.clase}", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.SemiBold)
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(diag.definicion, fontSize = 13.sp, color = Color.DarkGray, maxLines = 2)
+                    }
+                }
+            }
+        } else if (libroActivo == "NOC") {
+            val dominiosNoc = listOf("TODOS") + diagnosticosOrdenados.flatMap { it.noc }.map { it.dominio_noc }.distinct()
+            val itemsNoc = diagnosticosOrdenados.flatMap { diag ->
+                diag.noc.filter { filtroNocNicDom == "TODOS" || it.dominio_noc == filtroNocNicDom }
+                    .map { noc -> diag to noc }
+            }
+
+            LazyRow(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(dominiosNoc) { dom ->
+                    val sel = filtroNocNicDom == dom
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (sel) TealDark else Color(0xFFE0F2F1),
+                        modifier = Modifier.clickable { filtroNocNicDom = dom }
+                    ) {
+                        Text(
+                            if (dom == "TODOS") "7 Dominios NOC (36 Clases)" else dom,
+                            color = if (sel) Color.White else TealDark,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+            }
+
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(itemsNoc) { (diag, noc) ->
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { alSeleccionar(diag, 1) }
+                    ) {
+                        Column(modifier = Modifier.padding(14.dp)) {
+                            Text("${noc.dominio_noc} • ${noc.clase_noc}", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text("NOC ${noc.codigo}: ${noc.etiqueta}", fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, color = TealDark)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text("Vinculado a NANDA ${diag.codigo}: ${diag.etiqueta}", fontSize = 12.sp, color = Color.DarkGray)
+                        }
+                    }
+                }
+            }
+        } else {
+            val dominiosNic = listOf("TODOS") + diagnosticosOrdenados.flatMap { it.nic }.map { it.dominio_nic }.distinct()
+            val itemsNic = diagnosticosOrdenados.flatMap { diag ->
+                diag.nic.filter { filtroNocNicDom == "TODOS" || it.dominio_nic == filtroNocNicDom }
+                    .map { nic -> diag to nic }
+            }
+
+            LazyRow(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(dominiosNic) { dom ->
+                    val sel = filtroNocNicDom == dom
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (sel) PurpleQuiz else Color(0xFFEDE9FE),
+                        modifier = Modifier.clickable { filtroNocNicDom = dom }
+                    ) {
+                        Text(
+                            if (dom == "TODOS") "7 Dominios NIC (30 Clases)" else dom,
+                            color = if (sel) Color.White else PurpleQuiz,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+            }
+
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(itemsNic) { (diag, nic) ->
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { alSeleccionar(diag, 2) }
+                    ) {
+                        Column(modifier = Modifier.padding(14.dp)) {
+                            Text("${nic.dominio_nic} • ${nic.clase_nic}", fontSize = 11.sp, color = PurpleQuiz, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text("NIC ${nic.codigo}: ${nic.etiqueta}", fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, color = PurpleQuiz)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text("Vinculado a NANDA ${diag.codigo}: ${diag.etiqueta}", fontSize = 12.sp, color = Color.DarkGray)
+                        }
                     }
                 }
             }
@@ -625,17 +809,17 @@ fun PantallaExplorar(
     }
 }
 
-// --- PANTALLA 2: ENLACE INTERACTIVO NANDA-NOC-NIC + GENERADOR PAE CON ALERTAS ---
 @Composable
 fun PantallaDetalleInteractiva(
     diag: DiagnosticoNNN,
+    tabInicial: Int = 0,
     esDominado: Boolean,
     onToggleDominado: () -> Unit,
     volver: () -> Unit,
     hablar: (String) -> Unit
 ) {
     val context = LocalContext.current
-    var tabActual by remember { mutableIntStateOf(0) }
+    var tabActual by remember(diag.codigo, tabInicial) { mutableIntStateOf(tabInicial) }
     val factoresSeleccionados = remember { mutableStateListOf<String>() }
     val caracteristicasSeleccionadas = remember { mutableStateListOf<String>() }
     val actividadesSeleccionadas = remember { mutableStateListOf<String>() }
@@ -643,7 +827,6 @@ fun PantallaDetalleInteractiva(
     var puntajeMeta by remember { mutableFloatStateOf(4f) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // Cabecera
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -670,7 +853,6 @@ fun PantallaDetalleInteractiva(
             }
         }
 
-        // Pestañas NANDA - NOC - NIC
         TabRow(selectedTabIndex = tabActual, containerColor = Color.White, contentColor = TealPrimary) {
             Tab(selected = tabActual == 0, onClick = { tabActual = 0 }, text = { Text("1. NANDA", fontWeight = FontWeight.Bold) })
             Tab(selected = tabActual == 1, onClick = { tabActual = 1 }, text = { Text("2. NOC", fontWeight = FontWeight.Bold) })
@@ -686,13 +868,13 @@ fun PantallaDetalleInteractiva(
                 item {
                     Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(16.dp)) {
                         Column(modifier = Modifier.padding(14.dp)) {
-                            Text("📖 Definición Oficial (NANDA-I 2024-2026)", fontWeight = FontWeight.Bold, color = TealDark, fontSize = 13.sp)
+                            Text("Definición Oficial (NANDA-I 2024-2026)", fontWeight = FontWeight.Bold, color = TealDark, fontSize = 13.sp)
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(diag.definicion, fontSize = 14.sp)
                             Spacer(modifier = Modifier.height(8.dp))
                             Surface(color = Color(0xFFF0FDF4), shape = RoundedCornerShape(8.dp)) {
                                 Text(
-                                    "📌 ${diag.nota_edicion}",
+                                    diag.nota_edicion,
                                     fontSize = 12.sp,
                                     color = TealDark,
                                     fontWeight = FontWeight.SemiBold,
@@ -702,7 +884,7 @@ fun PantallaDetalleInteractiva(
                             Spacer(modifier = Modifier.height(6.dp))
                             Surface(color = Color(0xFFFFFBEB), shape = RoundedCornerShape(8.dp)) {
                                 Text(
-                                    "💡 Clave de estudio: ${diag.puntos_clave}",
+                                    "Clave de estudio: ${diag.puntos_clave}",
                                     fontSize = 12.sp,
                                     color = Color(0xFF92400E),
                                     modifier = Modifier.padding(8.dp)
@@ -713,7 +895,7 @@ fun PantallaDetalleInteractiva(
                 }
                 item {
                     Text(
-                        if (diag.tipo == "PROMOCION") "👆 Motivación / Disposición:" else "👆 Selecciona Factores Relacionados / de Riesgo (r/c):",
+                        if (diag.tipo == "PROMOCION") "Selecciona características o motivación:" else "Selecciona Factores Relacionados / de Riesgo (r/c):",
                         fontWeight = FontWeight.Bold,
                         fontSize = 13.sp
                     )
@@ -732,7 +914,7 @@ fun PantallaDetalleInteractiva(
                     item {
                         Surface(color = Color(0xFFFEF3C7), shape = RoundedCornerShape(12.dp)) {
                             Text(
-                                "⚠️ Alerta académica PAE: Este es un diagnóstico de RIESGO. No lleva características definitorias ('manifestado por') porque el problema aún no está presente.",
+                                "Aviso PAE: Este es un diagnóstico de RIESGO. No lleva características definitorias ('manifestado por') porque el problema aún no está presente.",
                                 fontSize = 12.sp,
                                 color = Color(0xFF92400E),
                                 fontWeight = FontWeight.Bold,
@@ -743,7 +925,7 @@ fun PantallaDetalleInteractiva(
                 } else if (diag.caracteristicas_definitorias.isNotEmpty()) {
                     item {
                         Spacer(modifier = Modifier.height(6.dp))
-                        Text("👆 Selecciona Características Definitorias (m/p):", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                        Text("Selecciona Características Definitorias (m/p):", fontWeight = FontWeight.Bold, fontSize = 13.sp)
                     }
                     items(diag.caracteristicas_definitorias) { caract ->
                         ChipSeleccionable(
@@ -762,7 +944,7 @@ fun PantallaDetalleInteractiva(
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text("${noc.dominio_noc} • ${noc.clase_noc}", fontSize = 11.sp, color = TealPrimary, fontWeight = FontWeight.Bold)
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text("🎯 NOC ${noc.codigo}: ${noc.etiqueta}", fontWeight = FontWeight.ExtraBold, fontSize = 16.sp, color = TealDark)
+                            Text("NOC ${noc.codigo}: ${noc.etiqueta}", fontWeight = FontWeight.ExtraBold, fontSize = 16.sp, color = TealDark)
                             Spacer(modifier = Modifier.height(8.dp))
                             noc.indicadores.forEach { ind ->
                                 Text("• $ind", fontSize = 13.sp, modifier = Modifier.padding(vertical = 2.dp))
@@ -781,7 +963,7 @@ fun PantallaDetalleInteractiva(
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text("${nic.dominio_nic} • ${nic.clase_nic}", fontSize = 11.sp, color = PurpleQuiz, fontWeight = FontWeight.Bold)
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text("🩺 NIC ${nic.codigo}: ${nic.etiqueta}", fontWeight = FontWeight.ExtraBold, fontSize = 16.sp, color = PurpleQuiz)
+                            Text("NIC ${nic.codigo}: ${nic.etiqueta}", fontWeight = FontWeight.ExtraBold, fontSize = 16.sp, color = PurpleQuiz)
                             Spacer(modifier = Modifier.height(8.dp))
                             nic.actividades.forEach { act ->
                                 ChipSeleccionable(
@@ -800,7 +982,6 @@ fun PantallaDetalleInteractiva(
             }
         }
 
-        // Generador PAE en tiempo real
         Surface(color = Color.White, shadowElevation = 14.dp) {
             Column(modifier = Modifier.padding(14.dp)) {
                 val rcTexto = if (factoresSeleccionados.isEmpty()) "[selecciona factor r/c]" else factoresSeleccionados.joinToString(", ")
@@ -814,13 +995,13 @@ fun PantallaDetalleInteractiva(
                     "RESULTADO NOC: (${nocActual?.codigo ?: "-"}) ${nocActual?.etiqueta ?: "-"} — Mantener en ${puntajeInicial.toInt()}, Aumentar a ${puntajeMeta.toInt()}.\n" +
                     "INTERVENCIÓN NIC: (${nicActual?.codigo ?: "-"}) ${nicActual?.etiqueta ?: "-"}: ${actividadesSeleccionadas.joinToString("; ")}."
 
-                Text("📝 Borrador PAE Estructurado:", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = TealPrimary)
+                Text("Borrador PAE Estructurado:", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = TealPrimary)
                 Text(paeRedactado, fontSize = 12.sp, modifier = Modifier.padding(vertical = 4.dp))
                 Button(
                     onClick = {
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         clipboard.setPrimaryClip(ClipData.newPlainText("PAE", paeRedactado))
-                        Toast.makeText(context, "¡PAE oficial copiado!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "¡PAE copiado!", Toast.LENGTH_SHORT).show()
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = TealPrimary),
                     shape = RoundedCornerShape(12.dp),
@@ -828,7 +1009,7 @@ fun PantallaDetalleInteractiva(
                 ) {
                     Icon(Icons.Default.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Copiar PAE para mi informe", fontWeight = FontWeight.Bold)
+                    Text("Copiar PAE", fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -862,7 +1043,6 @@ fun ChipSeleccionable(texto: String, seleccionado: Boolean, colorActivo: Color, 
     }
 }
 
-// --- PANTALLA 3: TUTOR CLÍNICO POR VOZ CON PISTAS GRADUALES Y RESPUESTA OFICIAL ---
 @Composable
 fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Unit) {
     val context = LocalContext.current
@@ -895,12 +1075,12 @@ fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Uni
         colorFeedback = TealDark
         val nocRef = casoActual.noc.firstOrNull()
         val nicRef = casoActual.nic.firstOrNull()
-        feedbackTutor = "✅ RESPUESTA OFICIAL (NANDA-I 2024-2026):\n" +
+        feedbackTutor = "RESPUESTA OFICIAL (NANDA-I 2024-2026):\n" +
             "• Diagnóstico: (${casoActual.codigo}) ${casoActual.etiqueta} [${casoActual.tipo}]\n" +
             "• Ubicación: ${casoActual.dominio} > ${casoActual.clase}\n" +
-            "• NOC recomendado: (${nocRef?.codigo ?: "-"}) ${nocRef?.etiqueta ?: "-"}\n" +
-            "• NIC recomendado: (${nicRef?.codigo ?: "-"}) ${nicRef?.etiqueta ?: "-"}\n" +
-            "• Fundamento: ${casoActual.puntos_clave}"
+            "• NOC: (${nocRef?.codigo ?: "-"}) ${nocRef?.etiqueta ?: "-"}\n" +
+            "• NIC: (${nicRef?.codigo ?: "-"}) ${nicRef?.etiqueta ?: "-"}\n" +
+            "• Referencia: ${casoActual.puntos_clave}"
         hablar("La respuesta oficial es ${casoActual.etiqueta}, código ${casoActual.codigo}.")
     }
 
@@ -922,7 +1102,7 @@ fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Uni
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("🏥 CASO CLÍNICO #${indiceCaso + 1} DE ${diagnosticos.size}", color = PurpleQuiz, fontWeight = FontWeight.ExtraBold, fontSize = 13.sp)
+                    Text("CASO CLÍNICO #${indiceCaso + 1} DE ${diagnosticos.size}", color = PurpleQuiz, fontWeight = FontWeight.ExtraBold, fontSize = 13.sp)
                     TextButton(onClick = { hablar(casoActual.caso_voz) }) {
                         Icon(Icons.Default.VolumeUp, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(4.dp))
@@ -950,19 +1130,23 @@ fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Uni
                         alTerminar = { textoReconocido ->
                             escuchando = false
                             respuestaEstudiante = textoReconocido
-                            val aciertos = casoActual.palabras_clave_voz.filter { clave ->
-                                textoReconocido.lowercase().contains(clave.lowercase())
-                            }
-                            if (aciertos.isNotEmpty()) {
+                            val textoLower = textoReconocido.lowercase()
+
+                            // Verifica si dijo directamente el diagnóstico actual o el de mayor puntaje
+                            val aciertoDirecto = textoLower.contains(casoActual.etiqueta.lowercase()) ||
+                                textoLower.contains(casoActual.codigo.lowercase()) ||
+                                casoActual.claves_principales.any { clave -> clave.length >= 4 && textoLower.contains(clave) }
+
+                            if (aciertoDirecto) {
                                 revelarRespuestaOficial()
                             } else {
                                 intentosFallidos++
                                 colorFeedback = AmberRiesgo
                                 if (intentosFallidos == 1) {
-                                    feedbackTutor = "💡 Pista 1 (Dominio): Revisa el ${casoActual.dominio}. Es un diagnóstico de tipo ${casoActual.tipo}. Intenta de nuevo."
+                                    feedbackTutor = "Pista 1 (Dominio): Revisa el ${casoActual.dominio}. Tipo: ${casoActual.tipo}. Intenta de nuevo."
                                     hablar("Pista uno. Revisa el ${casoActual.dominio}.")
                                 } else if (intentosFallidos == 2) {
-                                    feedbackTutor = "💡 Pista 2 (Clase y Signos): Se ubica en ${casoActual.clase}. Fíjate en: ${casoActual.definicion}"
+                                    feedbackTutor = "Pista 2 (Clase y Definición): Se ubica en ${casoActual.clase}. Definición: ${casoActual.definicion}"
                                     hablar("Pista dos. Se ubica en ${casoActual.clase}.")
                                 } else {
                                     revelarRespuestaOficial()
@@ -982,7 +1166,7 @@ fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Uni
 
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            if (escuchando) "🎙️ Escuchando tu respuesta..." else "Toca el micrófono para responder",
+            if (escuchando) "Escuchando tu respuesta..." else "Toca el micrófono para responder",
             fontWeight = FontWeight.Bold,
             fontSize = 13.sp,
             color = if (escuchando) CoralReal else Color.DarkGray
@@ -1034,7 +1218,7 @@ fun PantallaTutorVoz(diagnosticos: List<DiagnosticoNNN>, hablar: (String) -> Uni
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Siguiente Caso ➡️", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                Text("Siguiente Caso", fontWeight = FontWeight.Bold, fontSize = 12.sp)
             }
         }
     }
@@ -1071,7 +1255,6 @@ fun iniciarReconocimientoVoz(
     recognizer.startListening(intent)
 }
 
-// --- PANTALLA 4: FLASHCARDS + ACCESO A TERMINOLOGÍA ---
 @Composable
 fun PantallaFlashcards(
     diagnosticos: List<DiagnosticoNNN>,
@@ -1094,7 +1277,7 @@ fun PantallaFlashcards(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("🧠 REPASO RÁPIDO (${dominados.size}/${diagnosticos.size})", fontWeight = FontWeight.ExtraBold, color = PurpleQuiz, fontSize = 14.sp)
+            Text("REPASO RÁPIDO (${dominados.size}/${diagnosticos.size})", fontWeight = FontWeight.ExtraBold, color = PurpleQuiz, fontSize = 14.sp)
             OutlinedButton(onClick = abrirTerminologia, shape = RoundedCornerShape(50)) {
                 Icon(Icons.Default.MenuBook, contentDescription = null, modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(6.dp))
@@ -1123,7 +1306,7 @@ fun PantallaFlashcards(
                     Spacer(modifier = Modifier.height(14.dp))
                     Text(actual.definicion, fontSize = 17.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
                     Spacer(modifier = Modifier.height(22.dp))
-                    Text("👆 Toca la tarjeta para ver etiqueta y enlace NNN", color = PurpleQuiz, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                    Text("Toca la tarjeta para ver etiqueta y enlace NNN", color = PurpleQuiz, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
                 } else {
                     Text("NANDA-I ${actual.codigo} • ${actual.tipo}", color = AmberRiesgo, fontWeight = FontWeight.ExtraBold, fontSize = 14.sp)
                     Spacer(modifier = Modifier.height(8.dp))
@@ -1144,12 +1327,11 @@ fun PantallaFlashcards(
             shape = RoundedCornerShape(14.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Siguiente Tarjeta 🔄", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Text("Siguiente Tarjeta", fontWeight = FontWeight.Bold, fontSize = 15.sp)
         }
     }
 }
 
-// --- PANTALLA 5: GLOSARIO DE TERMINOLOGÍA Y ESTRUCTURA DE LOS 3 LIBROS ---
 @Composable
 fun PantallaTerminologia(
     terminologia: List<TerminoGlosario>,
@@ -1172,9 +1354,10 @@ fun PantallaTerminologia(
             IconButton(onClick = volver) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Volver", tint = Color.White)
             }
+            Spacer(modifier = Modifier.width(6.dp))
             Column {
-                Text("Terminología Oficial y Taxonomías", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
-                Text("Estructura verificada de los 3 libros", color = Color(0xFF80CBC4), fontSize = 12.sp)
+                Text("Terminología Oficial y Taxonomías", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.ExtraBold)
+                Text("Estructura de los 3 libros", color = Color(0xFF80CBC4), fontSize = 12.sp)
             }
         }
 
@@ -1197,7 +1380,7 @@ fun PantallaTerminologia(
             item {
                 Card(colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)), shape = RoundedCornerShape(16.dp)) {
                     Column(modifier = Modifier.padding(14.dp)) {
-                        Text("📚 Estructura Jerárquica de los 3 Libros", fontWeight = FontWeight.ExtraBold, color = TealDark)
+                        Text("Estructura Jerárquica de los 3 Libros", fontWeight = FontWeight.ExtraBold, color = TealDark)
                         Spacer(modifier = Modifier.height(4.dp))
                         Text("• ${taxonomia.nanda.titulo}: ${taxonomia.nanda.resumen}", fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                         Text("• ${taxonomia.noc.titulo}: ${taxonomia.noc.resumen}", fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
